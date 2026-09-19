@@ -5,6 +5,7 @@ import WatchlistView from '../../components/WatchlistView';
 import { PLAYER_PAGE_REVALIDATE_SECONDS } from '../../../src/lib/server/player-seo-contract.mjs';
 import { getToolsData } from '../tools-data';
 import { resolvePageSeo, getPageH1Override, PageSeoH1, getPageCustomJsonLd, PageSeoCustomJsonLd } from '../../../src/lib/server/page-seo-metadata.mjs';
+import { listSquadThemes } from '../../../src/lib/server/squad-themes.mjs';
 
 const ToolsInteractions = nextDynamic(() => import('../../components/ToolsInteractions.client'), {
   loading: () => (
@@ -83,6 +84,15 @@ export default async function ToolSlugPage({ params }) {
   const initialTool = config.id;
   const isWatchlistTool = initialTool === 'watchlist';
   const { toolPlayers, squadFilterOptions } = await getToolsData(isWatchlistTool);
+  
+  let customThemes = [];
+  if (initialTool === 'squadbuilder') {
+    try {
+      customThemes = await listSquadThemes();
+    } catch (e) {
+      console.error('[tools] Failed to load custom themes', e);
+    }
+  }
 
   const breadcrumbJsonLd = {
     '@context': 'https://schema.org',
@@ -128,7 +138,7 @@ export default async function ToolSlugPage({ params }) {
         {isWatchlistTool ? (
           <WatchlistView />
         ) : (
-          <ToolsInteractions players={toolPlayers} initialTool={initialTool} filterOptions={squadFilterOptions} />
+          <ToolsInteractions players={toolPlayers} initialTool={initialTool} filterOptions={squadFilterOptions} customThemes={customThemes} />
         )}
       </main>
     </SiteChrome>

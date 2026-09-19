@@ -1234,7 +1234,19 @@ const defaultLiveCalibMulti = {
   480: { pitchImgW:86,pitchImgH:96,pitchImgX:-2,pitchImgY:-9,pitchOvrTop:13,pitchOvrLeft:14,pitchOvrSize:0.66,pitchPosTop:22,pitchPosLeft:17,pitchPosSize:0.46,pitchNameBot:27,pitchNameX:4,pitchNameSize:0.43,pitchUntradTop:2,pitchUntradLeft:23,pitchUntradSize:9,pitchNationLeft:16,pitchNationBot:13,pitchNationWidth:8,pitchClubLeft:54,pitchClubBot:13,pitchClubWidth:8,pitchLeagueLeft:35,pitchLeagueBot:13,pitchLeagueWidth:8,benchImgW:74,benchImgH:82,benchImgX:0,benchImgY:12,benchOvrTop:8,benchOvrLeft:9,benchOvrSize:0.45,benchPosTop:14,benchPosLeft:11,benchPosSize:0.3,benchNameBot:14,benchNameX:4,benchNameSize:0.4,benchUntradRight:-1,benchUntradTop:-10,benchUntradSize:8,benchNationLeft:9,benchNationBot:7,benchNationWidth:6,benchClubLeft:34,benchClubBot:7,benchClubWidth:7,benchLeagueLeft:22,benchLeagueBot:8,benchLeagueWidth:6,benchClubY:0,benchLeagueX:0,benchNationY:0,benchLeagueY:0,benchNationX:0,pitchNationY:0 }
 };
 
-export default function ToolsInteractions({ players = [], initialTool = '', filterOptions = null }) {
+export default function ToolsInteractions({ players = [], initialTool = '', filterOptions = null, customThemes = [] }) {
+  const ALL_THEMES = useMemo(() => {
+    const merged = { ...FIELD_THEMES };
+    customThemes.forEach((theme) => {
+      merged[theme.id] = {
+        id: theme.id,
+        name: theme.name,
+        background: theme.backgroundUrl,
+        className: theme.className || ''
+      };
+    });
+    return merged;
+  }, [customThemes]);
   const router = useRouter();
   const normalizedPlayers = useMemo(() => players.map(normalizePlayer), [players]);
   const [supplementalPlayers, setSupplementalPlayers] = useState({});
@@ -1464,7 +1476,7 @@ export default function ToolsInteractions({ players = [], initialTool = '', filt
           setBadges(normalizeBadges(parsedRoundtrip.badges));
         }
         const nextThemeId = String(parsedRoundtrip?.fieldThemeId || '');
-        if (FIELD_THEMES[nextThemeId]) {
+        if (ALL_THEMES[nextThemeId]) {
           setFieldThemeId(nextThemeId);
           setFieldThemeDraft(nextThemeId);
           restoredThemeFromRoundtrip = true;
@@ -1502,7 +1514,7 @@ export default function ToolsInteractions({ players = [], initialTool = '', filt
     if (!restoredThemeFromRoundtrip) {
       try {
         const savedTheme = window.localStorage.getItem('selectedFieldTheme') || 'camp-nou';
-        if (FIELD_THEMES[savedTheme]) {
+        if (ALL_THEMES[savedTheme]) {
           setFieldThemeId(savedTheme);
           setFieldThemeDraft(savedTheme);
         }
@@ -2655,7 +2667,7 @@ export default function ToolsInteractions({ players = [], initialTool = '', filt
   };
 
   const applyThemeSelection = () => {
-    if (FIELD_THEMES[fieldThemeDraft]) {
+    if (ALL_THEMES[fieldThemeDraft]) {
       setFieldThemeId(fieldThemeDraft);
     }
     setThemeSelectorOpen(false);
@@ -2704,7 +2716,7 @@ export default function ToolsInteractions({ players = [], initialTool = '', filt
       setBench(normalizeBench(parsed?.bench));
       setBadges(normalizeBadges(parsed?.badges));
       const nextThemeId = String(parsed?.fieldTheme || '');
-      if (FIELD_THEMES[nextThemeId]) {
+      if (ALL_THEMES[nextThemeId]) {
         setFieldThemeId(nextThemeId);
         setFieldThemeDraft(nextThemeId);
       }
@@ -2802,7 +2814,7 @@ export default function ToolsInteractions({ players = [], initialTool = '', filt
   const selectedCustomizationPlayer = selectedPlayerForCustomization?.playerId
     ? playersById.get(selectedPlayerForCustomization.playerId) || null
     : null;
-  const activeFieldTheme = FIELD_THEMES[fieldThemeId] || FIELD_THEMES['camp-nou'];
+  const activeFieldTheme = ALL_THEMES[fieldThemeId] || ALL_THEMES['camp-nou'];
   const fieldThemeClassName = `theme-${activeFieldTheme.id}`;
   const isSquadBuilderActive = activeTool === 'squadbuilder';
   const isCompareActive = activeTool === 'compare';
@@ -3674,7 +3686,7 @@ export default function ToolsInteractions({ players = [], initialTool = '', filt
               </button>
             </div>
             <div id="theme-gallery" className="theme-gallery">
-              {Object.values(FIELD_THEMES).map((theme) => (
+              {Object.values(ALL_THEMES).map((theme) => (
                 <div
                   key={theme.id}
                   className={`theme-option ${fieldThemeDraft === theme.id ? 'active' : ''}`}
