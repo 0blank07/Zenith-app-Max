@@ -9,6 +9,7 @@ const mode = process.argv[2] === 'dev' ? 'dev' : 'build';
 const tunnelPort = Number(process.env.ZENITH_DB_TUNNEL_PORT || 15432);
 const tunnelHost = '127.0.0.1';
 const tunnelTarget = '127.0.0.1:5432';
+const useDirectDatabase = process.env.ZENITH_DB_DIRECT === 'true' || projectRoot === '/var/www/zenith';
 
 function run(command, args, options = {}) {
   return new Promise((resolve, reject) => {
@@ -61,11 +62,11 @@ function waitForTunnel(child) {
   });
 }
 
-function tunnelDatabaseUrl(value) {
+function tunnelDatabaseUrl(value, port) {
   if (!value) return value;
   const url = new URL(value);
   url.hostname = tunnelHost;
-  url.port = String(tunnelPort);
+  url.port = String(port);
   return url.toString();
 }
 
@@ -74,21 +75,24 @@ async function main() {
     await run(process.execPath, ['scripts/prepare-legacy.mjs'], { cwd: projectRoot });
   }
 
-  const tunnel = spawn('ssh', [
-    '-N',
-    '-L', `${tunnelPort}:${tunnelTarget}`,
-    '-o', 'ExitOnForwardFailure=yes',
-    'zenith'
-  ], { cwd: projectRoot, stdio: 'ignore', windowsHide: true });
+  const databasePort = useDirectDatabase ? 5432 : tunnelPort;
+  const tunnel = useDirectDatabase
+    ? null
+    : spawn('ssh', [
+      '-N',
+      '-L', `${tunnelPort}:${tunnelTarget}`,
+      '-o', 'ExitOnForwardFailure=yes',
+      'zenith'
+    ], { cwd: projectRoot, stdio: 'ignore', windowsHide: true });
 
   try {
-    await waitForTunnel(tunnel);
+    if (tunnel) await waitForTunnel(tunnel);
 
-    const env = { ...process.env, PG_HOST: tunnelHost, PG_PORT: String(tunnelPort) };
+    const env = { ...process.env, PG_HOST: tunnelHost, PG_PORT: String(databasePort) };
     const localEnv = dotenv.config({ path: path.join(projectRoot, '.env.local'), processEnv: {} }).parsed || {};
     for (const key of ['DATABASE_URL', 'BLOG_DATABASE_URL', 'MARKET_DATABASE_URL']) {
       const value = process.env[key] || localEnv[key];
-      if (value) env[key] = tunnelDatabaseUrl(value);
+      if (value) env[key] = tunnelDatabaseUrl(value, databasePort);
     }
 
     if (mode === 'build') {
@@ -96,7 +100,7 @@ async function main() {
     }
     await run(process.execPath, ['node_modules/next/dist/bin/next', mode], { cwd: projectRoot, env });
   } finally {
-    if (tunnel.exitCode === null) tunnel.kill();
+    if (tunnel?.exitCode === null) tunnel.kill();
   }
 }
 
