@@ -638,7 +638,7 @@ export default function PlayersDatabaseInteractions({
     ratingMin: String(DEFAULT_FILTERS.ratingMin),
     ratingMax: String(DEFAULT_FILTERS.ratingMax)
   }));
-  const [sortBy, setSortBy] = useState('latest');
+  const [sortBy, setSortBy] = useState('rating');
   const setSearchQuery = useCallback((nextSearch) => {
     setQueryParams((current) => {
       const resolved = typeof nextSearch === 'function' ? nextSearch(current.search) : nextSearch;
@@ -1106,7 +1106,7 @@ export default function PlayersDatabaseInteractions({
   }, [filteredModalStats]);
 
   const resetAllFilters = () => {
-    setSortBy('latest');
+    setSortBy('rating');
     setQueryParams({ ...DEFAULT_QUERY_PARAMS });
     setMobileFilters({ ...DEFAULT_FILTERS });
     setRatingDraft({
