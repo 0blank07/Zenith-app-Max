@@ -16,6 +16,19 @@ function getNavClass(activeView, view) {
   return activeView === view ? 'nav-link active' : 'nav-link';
 }
 
+function renderTickerText(text) {
+  const emailPattern = /([A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,})/gi;
+  const emailAddressPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+
+  return String(text || '').split(emailPattern).map((part, index) =>
+    emailAddressPattern.test(part) ? (
+      <a key={`${part}-${index}`} href={`mailto:${part}`} className="zenith-top-ticker-email">
+        {part}
+      </a>
+    ) : part
+  );
+}
+
 export default function SiteChrome({ activeView = '', showSlider = false, children }) {
   const topTicker = getTopTickerConfig();
 
@@ -94,10 +107,10 @@ export default function SiteChrome({ activeView = '', showSlider = false, childr
         </div>
       </header>
 
-      {showSlider && topTicker.enabled ? (
-        <div className="slider" style={{ maxWidth: '100vw', overflow: 'hidden' }}>
-          <span>{topTicker.text}</span>
-        </div>
+      {activeView === 'home' && showSlider && topTicker.enabled ? (
+        <aside className="zenith-top-ticker" role="status" aria-label="Community announcement">
+          <p>{renderTickerText(topTicker.text)}</p>
+        </aside>
       ) : null}
 
       {children}

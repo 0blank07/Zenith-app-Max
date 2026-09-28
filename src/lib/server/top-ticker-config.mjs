@@ -1,4 +1,4 @@
-export const DEFAULT_TOP_TICKER_TEXT = 'Trade, Build, Dominate – Massive Rewards Await on Zenith!';
+export const DEFAULT_TOP_TICKER_TEXT = 'We’re looking for volunteers to contribute to ZenithFCM through coding, reviews, and blog writing. Interested? Contact us: admin@zenithfcm.com';
 
 function parseBoolean(value) {
   const normalized = String(value || '').trim().toLowerCase();
