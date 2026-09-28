@@ -4,9 +4,8 @@
   "private": true,
   "scripts": {
     "predev": "node scripts/prepare-legacy.mjs",
-    "dev": "next dev",
-    "prebuild": "node scripts/prepare-legacy.mjs && node scripts/fix-database-urls.mjs",
-    "build": "next build",
+    "dev": "node scripts/build-with-db-tunnel.mjs dev",
+    "build": "node scripts/build-with-db-tunnel.mjs",
     "start": "next start",
     "lint": "next lint",
     "benchmark:phase1": "node scripts/benchmark-player-ssr.mjs --samples 50",

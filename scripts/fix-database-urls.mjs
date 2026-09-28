@@ -7,7 +7,7 @@ import path from 'path';
 dotenv.config({ path: path.resolve(process.cwd(), '.env') });
 
 const DB_CONFIG = {
-    host: process.env.PG_HOST || '157.230.249.27',
+    host: process.env.PG_HOST || '139.162.13.26',
     database: process.env.PG_DATABASE || 'zenith_data',
     user: process.env.PG_USER || 'zenith_bot',
     password: process.env.PG_PASSWORD || 'zenith6Z@',
