@@ -15,7 +15,28 @@ import {
 export async function middleware(request) {
   const { pathname, searchParams } = request.nextUrl;
 
-  // --- 1. Tool Redirects & Cleanup ---
+  // --- 1. 410 Gone Routes for Old SEO Cleanups ---
+  const gonePaths = [
+    '/us/ea-redeem-codes',
+    '/ph/ea-fc-mobile-redeem-codes',
+    '/in/fc-mobile-redeem-codes',
+    '/fc-mobile-redeem-codes-today',
+    '/vn/code-fc-mobile',
+    '/vn/code-fc-mobile-vn',
+    '/id/kode-redeem-fc-mobile',
+    '/my/kod-redeem-fc-mobile',
+    '/pt/codigo-de-resgate-fc-mobile',
+    '/de/fc-mobile-einloesecodes',
+    '/tr/fc-mobil-kullanim-kodlari',
+    '/ru/fc-mobile-promo-code',
+    '/my/fc-mobile-redeem-codes'
+  ];
+  
+  if (gonePaths.includes(pathname) || pathname.startsWith('/blogs/redeem-codes/')) {
+    return new NextResponse(null, { status: 410, statusText: 'Gone' });
+  }
+
+  // --- 2. Tool Redirects & Cleanup ---
   const toolParam = searchParams.get('tool');
 
   if (toolParam) {

@@ -1,5 +1,16 @@
 export const REDEEM_UI_I18N = {
   en: {
+    howToTitle: 'How to Redeem FC Mobile Codes',
+    howToIntro: 'Claiming your FC Mobile rewards takes just a few simple steps. Make sure your EA Account is linked to your FC Mobile account before you begin.',
+    howToSteps: [
+      { title: '1. Choose a Working Code', text: 'Pick an active FC Mobile redeem code from the list above and copy it.' },
+      { title: '2. Open the Official Redemption Page', text: 'Click the Redeem Code button below to visit EA\'s official FC Mobile redemption website.' },
+      { title: '3. Sign In to Your EA Account', text: 'Log in using the EA Account connected to your FC Mobile game.' },
+      { title: '4. Enter Your Code', text: 'Paste the copied code into the redemption box and submit it.' },
+      { title: '5. Collect Your Rewards', text: 'Open FC Mobile and check your in-game mailbox. If the code is valid, your rewards will be waiting for you.' }
+    ],
+    howToFooter: 'Redeem your code on the official EA website:',
+    howToButton: 'Redeem FC Mobile Code →',
     selectRegion: 'Select Region',
     searchPlaceholder: 'Search for active codes...',
     filterStatus: 'Filter by status',
@@ -26,6 +37,18 @@ export const REDEEM_UI_I18N = {
     faqTitle: 'Frequently Asked Questions'
   },
   es: {
+    howToTitle: 'Cómo canjear códigos de FC Mobile',
+    howToIntro: 'Reclamar tus recompensas de FC Mobile solo toma unos simples pasos. Asegúrate de que tu cuenta de EA esté vinculada a tu cuenta de FC Mobile antes de comenzar.',
+    howToSteps: [
+      { title: '1. Elige un código activo', text: 'Elige un código de canje activo de FC Mobile de la lista anterior y cópialo.' },
+      { title: '2. Abre la página oficial de canje', text: 'Haz clic en el botón de abajo para visitar el sitio web oficial de canje de EA.' },
+      { title: '3. Inicia sesión en tu cuenta de EA', text: 'Inicia sesión con la cuenta de EA vinculada a tu juego.' },
+      { title: '4. Ingresa tu código', text: 'Pega el código copiado en la casilla de canje y envíalo.' },
+      { title: '5. Recoge tus recompensas', text: 'Abre FC Mobile y revisa tu buzón en el juego. Si el código es válido, tus recompensas te estarán esperando.' }
+    ],
+    howToFooter: 'Canjea tu código en el sitio web oficial de EA:',
+    howToButton: 'Canjear código de FC Mobile →',
+    redeemAtEa: 'Canjear en el sitio de EA',
     selectRegion: 'Seleccionar Región',
     searchPlaceholder: 'Buscar códigos activos...',
     filterStatus: 'Filtrar por estado',
@@ -130,6 +153,18 @@ export const REDEEM_UI_I18N = {
     faqTitle: 'Câu hỏi thường gặp'
   },
   th: {
+    howToTitle: 'วิธีแลกโค้ด FC Mobile',
+    howToIntro: 'การรับรางวัล FC Mobile ใช้เวลาเพียงไม่กี่ขั้นตอนง่ายๆ ตรวจสอบให้แน่ใจว่าบัญชี EA ของคุณเชื่อมโยงกับบัญชี FC Mobile ของคุณก่อนเริ่มต้น',
+    howToSteps: [
+      { title: '1. เลือกโค้ดที่ใช้งานได้', text: 'เลือกโค้ดแลก FC Mobile ที่ใช้งานได้จากรายการด้านบนแล้วคัดลอก' },
+      { title: '2. เปิดหน้าแลกรับรางวัลทางการ', text: 'คลิกปุ่มแลกโค้ดด้านล่างเพื่อไปที่เว็บไซต์แลกรับรางวัล FC Mobile อย่างเป็นทางการของ EA' },
+      { title: '3. ลงชื่อเข้าใช้บัญชี EA ของคุณ', text: 'เข้าสู่ระบบโดยใช้บัญชี EA ที่เชื่อมต่อกับเกมของคุณ' },
+      { title: '4. ป้อนโค้ดของคุณ', text: 'วางโค้ดที่คัดลอกลงในช่องแลกรับรางวัลและกดยืนยัน' },
+      { title: '5. รับรางวัลของคุณ', text: 'เปิด FC Mobile และตรวจสอบกล่องจดหมายในเกมของคุณ หากโค้ดถูกต้อง รางวัลของคุณจะรอคุณอยู่' }
+    ],
+    howToFooter: 'แลกโค้ดของคุณบนเว็บไซต์อย่างเป็นทางการของ EA:',
+    howToButton: 'แลกโค้ด FC Mobile →',
+    redeemAtEa: 'แลกที่เว็บไซต์ EA',
     selectRegion: 'เลือกภูมิภาค',
     searchPlaceholder: 'ค้นหารหัสที่ใช้งานอยู่...',
     filterStatus: 'กรองตามสถานะ',
@@ -156,6 +191,18 @@ export const REDEEM_UI_I18N = {
     faqTitle: 'คำถามที่พบบ่อย'
   },
   ar: {
+    howToTitle: 'كيفية استرداد رموز FC Mobile',
+    howToIntro: 'تتطلب المطالبة بمكافآت FC Mobile بضع خطوات بسيطة فقط. تأكد من ربط حساب EA الخاص بك بحساب FC Mobile قبل البدء.',
+    howToSteps: [
+      { title: '1. اختر رمزًا نشطًا', text: 'اختر رمز استرداد FC Mobile نشطًا من القائمة أعلاه وقم بنسخه.' },
+      { title: '2. افتح صفحة الاسترداد الرسمية', text: 'انقر فوق زر الاسترداد أدناه لزيارة موقع الاسترداد الرسمي لـ EA.' },
+      { title: '3. قم بتسجيل الدخول إلى حساب EA', text: 'قم بتسجيل الدخول باستخدام حساب EA المرتبط بلعبتك.' },
+      { title: '4. أدخل الرمز الخاص بك', text: 'ألصق الرمز المنسوخ في مربع الاسترداد وأرسله.' },
+      { title: '5. اجمع مكافآتك', text: 'افتح FC Mobile وتحقق من صندوق الوارد داخل اللعبة. إذا كان الرمز صالحًا، فستكون مكافآتك في انتظارك.' }
+    ],
+    howToFooter: 'استرد الرمز الخاص بك على موقع EA الرسمي:',
+    howToButton: 'استرداد رمز FC Mobile →',
+    redeemAtEa: 'استرداد في موقع EA',
     selectRegion: 'اختر المنطقة',
     searchPlaceholder: 'البحث عن الرموز النشطة...',
     filterStatus: 'تصفية حسب الحالة',

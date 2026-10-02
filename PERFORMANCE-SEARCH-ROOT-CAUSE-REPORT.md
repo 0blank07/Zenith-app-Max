@@ -1,4 +1,4 @@
-# ZenithFCM Search Performance Root-Cause Report
+d# ZenithFCM Search Performance Root-Cause Report
 
 **Date:** 2026-09-30  
 **Scope:** `zenithfcm.com` homepage search, `/players` search, modern squad-builder search, modern compare-player search, shared search API, and legacy search implementations.  

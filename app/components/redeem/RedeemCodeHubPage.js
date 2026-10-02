@@ -65,6 +65,22 @@ function renderCodeCard(entry, locale, copy) {
         aria-label={copy.copyButton}
       />
 
+      {entry.status === 'active' && (
+        <a 
+          href="https://redeem.fcm.ea.com/" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className={styles.redeemLink}
+        >
+          {copy.redeemAtEa || 'Redeem at EA Site'}
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: '8px' }}>
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <line x1="10" y1="14" x2="21" y2="3"></line>
+          </svg>
+        </a>
+      )}
+
       <div className={styles.cardFooter}>
         <span>
           <strong>{copy.publishedLabel}:</strong> {formatDate(entry.publishedAt, locale)}
@@ -186,6 +202,36 @@ export default function RedeemCodeHubPage({ pageData }) {
             </>
           )}
 
+          {copy.howToSteps && (
+            <section className={styles.howToSection}>
+              <h2 className={styles.howToTitle}>{copy.howToTitle}</h2>
+              <p className={styles.howToIntro}>{copy.howToIntro}</p>
+              
+              <div className={styles.howToGrid}>
+                {copy.howToSteps.map((step, idx) => (
+                  <div key={idx} className={styles.howToStep}>
+                    <div className={styles.howToStepNumber}>{idx + 1}</div>
+                    <div className={styles.howToStepContent}>
+                      <h3 className={styles.howToStepTitle}>{step.title.replace(/^\d+\.\s*/, '')}</h3>
+                      <p className={styles.howToStepText}>{step.text}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className={styles.howToFooter}>
+                <span>{copy.howToFooter}</span>
+                <a href="https://redeem.fcm.ea.com/" target="_blank" rel="noopener noreferrer" className={styles.howToButton}>
+                  {copy.howToButton}
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: '8px' }}>
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg>
+                </a>
+              </div>
+            </section>
+          )}
 
           {section.showExpired && (
             <section className={styles.section}>
