@@ -266,7 +266,9 @@ export default function RedeemCodeHubPage({ pageData }) {
           <div className={styles.faqList}>
             {faqEntries.map((entry) => (
               <details key={entry.question}>
-                <summary>{entry.question}</summary>
+                <summary>
+                  <h3 className={styles.faqQuestion}>{entry.question}</h3>
+                </summary>
                 <p>{entry.answer}</p>
               </details>
             ))}

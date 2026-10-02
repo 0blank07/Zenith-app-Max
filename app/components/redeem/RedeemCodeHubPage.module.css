@@ -676,3 +676,10 @@
     padding: 24px 16px;
   }
 }
+
+.faqQuestion {
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+}

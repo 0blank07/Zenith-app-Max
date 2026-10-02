@@ -8,6 +8,7 @@ import {
   REDEEM_ROUTE_KEY
 } from './constants.mjs';
 import { getNewestActiveRedeemCode, listPublicRedeemCodes } from './repository.mjs';
+import { getFaqsByScope } from './faq-repository.mjs';
 
 const { cache } = React;
 
@@ -154,7 +155,7 @@ export async function getRedeemHubPageData(routeConfig, { search = '', section =
   const availability = await getRedeemPublicAvailability();
   const normalizedSearch = normalizeSearch(search);
   const selectedSection = toSectionState(section);
-  const faq = getFaqEntries(routeConfig);
+  const faq = await getFaqEntries(routeConfig);
 
   if (!availability.isConfigured) {
     return {
