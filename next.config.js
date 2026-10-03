@@ -30,22 +30,7 @@ const nextConfig = {
         destination: '/tools/watchlist',
         permanent: true,
       },
-      // Active regional blog posts
-      {
-        source: '/blogs/redeem-codes/codigos-de-canje-de-fc-mobile-spanish',
-        destination: '/es/codigos-de-canje-de-fc-mobile',
-        permanent: true,
-      },
-      {
-        source: '/blogs/redeem-codes/kod-fifa-arabic',
-        destination: '/ae/kod-fifa',
-        permanent: true,
-      },
-      {
-        source: '/blogs/redeem-codes/fc-mobile-code-thai',
-        destination: '/th/fc-mobile-code',
-        permanent: true,
-      },
+      // Redirect main /blogs/redeem-codes hub to global, but NOT individual regional blogs
       {
         source: '/blogs/redeem-codes',
         destination: '/fc-mobile-redeem-codes',
