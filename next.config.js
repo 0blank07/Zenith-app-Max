@@ -30,29 +30,7 @@ const nextConfig = {
         destination: '/tools/watchlist',
         permanent: true,
       },
-      // English duplicates to global
-      {
-        source: '/in/fc-mobile-redeem-codes',
-        destination: '/fc-mobile-redeem-codes',
-        permanent: true,
-      },
-      {
-        source: '/us/ea-redeem-codes',
-        destination: '/fc-mobile-redeem-codes',
-        permanent: true,
-      },
-      {
-        source: '/ph/ea-fc-mobile-redeem-codes',
-        destination: '/fc-mobile-redeem-codes',
-        permanent: true,
-      },
-      // Old Malaysia slug to new slug
-      {
-        source: '/my/fc-mobile-redeem-codes',
-        destination: '/my/kod-redeem-fc-mobile',
-        permanent: true,
-      },
-      // Old regional blog posts
+      // Active regional blog posts
       {
         source: '/blogs/redeem-codes/codigos-de-canje-de-fc-mobile-spanish',
         destination: '/es/codigos-de-canje-de-fc-mobile',
@@ -64,13 +42,8 @@ const nextConfig = {
         permanent: true,
       },
       {
-        source: '/blogs/redeem-codes/kode-redeem-fc-mobile-indo',
-        destination: '/id/kode-redeem-fc-mobile',
-        permanent: true,
-      },
-      {
-        source: '/blogs/redeem-codes/kod-redeem-fc-mobile-malaysia',
-        destination: '/my/kod-redeem-fc-mobile',
+        source: '/blogs/redeem-codes/fc-mobile-code-thai',
+        destination: '/th/fc-mobile-code',
         permanent: true,
       },
       {
