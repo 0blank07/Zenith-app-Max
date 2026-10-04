@@ -9,11 +9,18 @@ export async function getAllFaqs() {
 }
 
 export async function getFaqsByScope(scope) {
+  const normalized = String(scope || '').toLowerCase().trim();
+  const aliases = [normalized];
+  if (normalized === 'th' || normalized === 'thailand') aliases.push('th', 'thailand');
+  if (normalized === 'ae' || normalized === 'uae') aliases.push('ae', 'uae');
+  if (normalized === 'es' || normalized === 'spain') aliases.push('es', 'spain');
+  const uniqueScopes = [...new Set(aliases)];
+
   const result = await runBlogQuery(`
     SELECT * FROM redeem_faqs
-    WHERE scope = $1
+    WHERE scope = ANY($1)
     ORDER BY order_index ASC, id DESC
-  `, [scope]);
+  `, [uniqueScopes]);
   return result.rows;
 }
 

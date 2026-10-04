@@ -25,10 +25,11 @@ export async function createFaqAction(formData) {
     return { error: 'Scope, question, and answer are required.' };
   }
 
-  await faqRepo.createFaq({ scope, question, answer, order_index: orderIndex });
+  const normalizedScope = scope === 'thailand' ? 'th' : scope === 'uae' ? 'ae' : scope === 'spain' ? 'es' : scope;
+  await faqRepo.createFaq({ scope: normalizedScope, question, answer, order_index: orderIndex });
   
   // Revalidate the affected scope path
-  const route = Object.values(REDEEM_ROUTE_CONFIG).find(r => r.scope === scope);
+  const route = Object.values(REDEEM_ROUTE_CONFIG).find(r => r.scope === normalizedScope || r.scope === scope);
   if (route) {
     revalidatePath(route.path);
   }
@@ -49,9 +50,10 @@ export async function updateFaqAction(id, formData) {
     return { error: 'Scope, question, and answer are required.' };
   }
 
-  await faqRepo.updateFaq(id, { scope, question, answer, order_index: orderIndex });
+  const normalizedScope = scope === 'thailand' ? 'th' : scope === 'uae' ? 'ae' : scope === 'spain' ? 'es' : scope;
+  await faqRepo.updateFaq(id, { scope: normalizedScope, question, answer, order_index: orderIndex });
   
-  const route = Object.values(REDEEM_ROUTE_CONFIG).find(r => r.scope === scope);
+  const route = Object.values(REDEEM_ROUTE_CONFIG).find(r => r.scope === normalizedScope || r.scope === scope);
   if (route) {
     revalidatePath(route.path);
   }
@@ -64,7 +66,8 @@ export async function deleteFaqAction(id, scope) {
   await requireAdmin();
   await faqRepo.deleteFaq(id);
   
-  const route = Object.values(REDEEM_ROUTE_CONFIG).find(r => r.scope === scope);
+  const normalizedScope = scope === 'thailand' ? 'th' : scope === 'uae' ? 'ae' : scope === 'spain' ? 'es' : scope;
+  const route = Object.values(REDEEM_ROUTE_CONFIG).find(r => r.scope === normalizedScope || r.scope === scope);
   if (route) {
     revalidatePath(route.path);
   }

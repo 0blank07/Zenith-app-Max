@@ -7,16 +7,9 @@ import Link from 'next/link';
 
 const SCOPES = [
   { value: 'global', label: 'Global (English)' },
-  { value: 'thailand', label: 'Thailand' },
-  { value: 'uae', label: 'UAE (Arabic)' },
-  { value: 'spain', label: 'Spain' },
-  { value: 'indonesia', label: 'Indonesia' },
-  { value: 'malaysia', label: 'Malaysia' },
-  { value: 'vietnam', label: 'Vietnam' },
-  { value: 'portugal', label: 'Portugal' },
-  { value: 'germany', label: 'Germany' },
-  { value: 'turkey', label: 'Turkey' },
-  { value: 'russia', label: 'Russia' },
+  { value: 'th', label: 'Thailand (Thai)' },
+  { value: 'ae', label: 'UAE (Arabic)' },
+  { value: 'es', label: 'Spain (Spanish)' },
 ];
 
 export default function AdminFaqEditor({ initialData = null }) {
@@ -81,7 +74,7 @@ export default function AdminFaqEditor({ initialData = null }) {
         <select 
           name="scope" 
           id="scope" 
-          defaultValue={initialData?.scope || 'global'} 
+          defaultValue={((initialData?.scope === 'thailand' ? 'th' : initialData?.scope === 'uae' ? 'ae' : initialData?.scope === 'spain' ? 'es' : initialData?.scope) || 'global')} 
           required
           style={{ padding: '10px', background: 'var(--color-bg)', color: 'var(--color-text)', border: '1px solid var(--color-border)', borderRadius: '4px' }}
         >
