@@ -115,7 +115,13 @@ function resolveLatestUpdatedAt(input = []) {
   return timestamps.length ? new Date(Math.max(...timestamps)).toISOString() : '';
 }
 
-function getFaqEntries(routeConfig) {
+async function getFaqEntries(routeConfig) {
+  if (routeConfig?.scope) {
+    try {
+      const dbFaqs = await getFaqsByScope(routeConfig.scope);
+      if (dbFaqs && dbFaqs.length > 0) return dbFaqs;
+    } catch (err) {}
+  }
   if (Array.isArray(routeConfig?.faqEntries) && routeConfig.faqEntries.length) {
     return routeConfig.faqEntries;
   }
