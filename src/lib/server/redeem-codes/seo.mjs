@@ -64,9 +64,34 @@ function resolveLanguageAlternates(routeConfig) {
   return alternates;
 }
 
+export function getDynamicTitleAndH1(routeConfig) {
+  const title = toText(routeConfig?.title, 'FC Mobile Redeem Codes | Zenith');
+  const h1 = toText(routeConfig?.h1, 'FC Mobile Redeem Codes');
+  
+  const TARGET_KEYS = [
+    REDEEM_ROUTE_KEY.GLOBAL,
+    REDEEM_ROUTE_KEY.THAILAND,
+    REDEEM_ROUTE_KEY.UAE,
+    REDEEM_ROUTE_KEY.SPAIN
+  ];
+
+  if (TARGET_KEYS.includes(routeConfig?.key)) {
+    const locale = toText(routeConfig?.locale, 'en-US');
+    let monthYear = new Intl.DateTimeFormat(locale, { month: 'long', year: 'numeric' }).format(new Date());
+    monthYear = monthYear.charAt(0).toUpperCase() + monthYear.slice(1);
+    
+    return {
+      title: `${title} (${monthYear})`,
+      h1: `${h1} (${monthYear})`
+    };
+  }
+  
+  return { title, h1 };
+}
+
 export function buildRedeemRouteMetadata(routeConfig) {
   const canonicalPath = routeConfig?.path || REDEEM_ROUTE_CONFIG[REDEEM_ROUTE_KEY.GLOBAL].path;
-  const title = toText(routeConfig?.title, 'FC Mobile Redeem Codes | Zenith');
+  const { title } = getDynamicTitleAndH1(routeConfig);
   const description = toText(routeConfig?.metaDescription);
   const locale = toText(routeConfig?.locale, 'en-US');
 

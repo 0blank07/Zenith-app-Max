@@ -35,6 +35,22 @@ const nextConfig = {
         source: '/blogs/redeem-codes',
         destination: '/fc-mobile-redeem-codes',
         permanent: true,
+      },
+      // Regional redeem code short alias redirects (R2 Homepage Authority Funnel)
+      {
+        source: '/th',
+        destination: '/th/fc-mobile-code',
+        permanent: true,
+      },
+      {
+        source: '/ae',
+        destination: '/ae/kod-fifa',
+        permanent: true,
+      },
+      {
+        source: '/es',
+        destination: '/es/codigos-de-canje-de-fc-mobile',
+        permanent: true,
       }
     ];
   }

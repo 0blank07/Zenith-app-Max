@@ -34,7 +34,15 @@ export const REDEEM_UI_I18N = {
     expiredTitle: 'Expired Codes',
     expiredCountSuffix: 'archived',
     expiredEmpty: 'No expired codes archived.',
-    faqTitle: 'Frequently Asked Questions'
+    faqTitle: 'Frequently Asked Questions',
+    voteWorked: 'Worked',
+    voteExpired: 'Expired',
+    verifiedByTeam: 'Verified by the ZenithFCM Team',
+    lastVerifiedWorking: 'Last Verified Working',
+    welcomeBackTitle: 'Code Copied! Level Up Your Squad',
+    welcomeBackCta: 'Explore Top 10 Players',
+    welcomeBackBrowseAll: 'Redeem at EA Site',
+    welcomeBackDismiss: 'Continue Browsing Codes'
   },
   es: {
     howToTitle: 'Cómo canjear códigos de FC Mobile',
@@ -72,7 +80,15 @@ export const REDEEM_UI_I18N = {
     expiredTitle: 'Códigos Expirados',
     expiredCountSuffix: 'archivados',
     expiredEmpty: 'No hay códigos expirados archivados.',
-    faqTitle: 'Preguntas Frecuentes'
+    faqTitle: 'Preguntas Frecuentes',
+    voteWorked: 'Funciona',
+    voteExpired: 'Expirado',
+    verifiedByTeam: 'Verificado por el equipo de ZenithFCM',
+    lastVerifiedWorking: 'Última verificación',
+    welcomeBackTitle: '¡Código copiado! Mejora tu plantilla',
+    welcomeBackCta: 'Explorar los 10 mejores jugadores',
+    welcomeBackBrowseAll: 'Canjear en el sitio de EA',
+    welcomeBackDismiss: 'Continuar viendo códigos'
   },
   id: {
     selectRegion: 'Pilih Wilayah',
@@ -188,7 +204,15 @@ export const REDEEM_UI_I18N = {
     expiredTitle: 'รหัสที่หมดอายุ',
     expiredCountSuffix: 'จัดเก็บแล้ว',
     expiredEmpty: 'ไม่มีรหัสหมดอายุที่จัดเก็บไว้',
-    faqTitle: 'คำถามที่พบบ่อย'
+    faqTitle: 'คำถามที่พบบ่อย',
+    voteWorked: 'ใช้งานได้',
+    voteExpired: 'หมดอายุ',
+    verifiedByTeam: 'ตรวจสอบโดยทีมงาน ZenithFCM',
+    lastVerifiedWorking: 'ตรวจสอบการใช้งานล่าสุด',
+    welcomeBackTitle: 'คัดลอกโค้ดแล้ว! อัปเกรดทีมของคุณ',
+    welcomeBackCta: 'สำรวจผู้เล่น 10 อันดับแรก',
+    welcomeBackBrowseAll: 'แลกที่เว็บไซต์ EA',
+    welcomeBackDismiss: 'ดูโค้ดต่อไป'
   },
   ar: {
     howToTitle: 'كيفية استرداد رموز FC Mobile',
@@ -226,7 +250,15 @@ export const REDEEM_UI_I18N = {
     expiredTitle: 'الرموز المنتهية',
     expiredCountSuffix: 'مؤرشفة',
     expiredEmpty: 'لا توجد رموز منتهية مؤرشفة.',
-    faqTitle: 'الأسئلة الشائعة'
+    faqTitle: 'الأسئلة الشائعة',
+    voteWorked: 'يعمل',
+    voteExpired: 'منتهي الصلاحية',
+    verifiedByTeam: 'تم التحقق بواسطة فريق ZenithFCM',
+    lastVerifiedWorking: 'تم التحقق من العمل آخر مرة',
+    welcomeBackTitle: 'تم نسخ الرمز! طور تشكيلتك',
+    welcomeBackCta: 'استكشف أفضل 10 لاعبين',
+    welcomeBackBrowseAll: 'استرداد في موقع EA',
+    welcomeBackDismiss: 'متابعة تصفح الرموز'
   },
   pt: {
     selectRegion: 'Selecione a Região',

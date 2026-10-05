@@ -94,6 +94,41 @@ export function buildRedeemFaqSchema(faqItems = [], { inLanguage = '' } = {}) {
   });
 }
 
+function toAbsoluteUrl(path, siteUrl = 'https://zenithfcm.com') {
+  const base = toText(siteUrl) || 'https://zenithfcm.com';
+  const validBase = base.startsWith('http://') || base.startsWith('https://') ? base : `https://${base}`;
+  const cleanPath = path.startsWith('/') ? path : `/${path}`;
+  try {
+    return new URL(cleanPath, validBase).toString();
+  } catch {
+    return `${validBase.replace(/\/+$/, '')}${cleanPath}`;
+  }
+}
+
+export function buildRedeemOrganizationSchema(
+  siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://zenithfcm.com'
+) {
+  const resolvedSiteUrl = toText(siteUrl) || 'https://zenithfcm.com';
+
+  return cleanJsonLdValue({
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'ZenithFCM',
+    alternateName: 'Zenith',
+    url: toAbsoluteUrl('/', resolvedSiteUrl),
+    logo: toAbsoluteUrl('/assets/images/zenith_logo_main.png', resolvedSiteUrl),
+    email: 'zenithfcmofficial@gmail.com',
+    sameAs: [
+      'https://x.com/zenithfcm',
+      'https://discord.gg/HM2JajuQjQ',
+      'https://www.instagram.com/zenithfcm/'
+    ],
+    description:
+      'The ultimate FC Mobile database, market tracker, and squad building platform for enthusiasts worldwide.',
+    publishingPrinciples: toAbsoluteUrl('/about-us', resolvedSiteUrl)
+  });
+}
+
 export function buildRedeemCollectionSchema(
   { title, description, path, entries = [], inLanguage = '' } = {},
   siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://zenithfcm.com'
@@ -101,6 +136,7 @@ export function buildRedeemCollectionSchema(
   const normalizedPath = toText(path);
   if (!normalizedPath) return null;
 
+  const resolvedSiteUrl = toText(siteUrl) || 'https://zenithfcm.com';
   const normalizedEntries = Array.isArray(entries) ? entries : [];
   const listEntries = normalizedEntries
     .map((entry, index) => ({
@@ -129,7 +165,36 @@ export function buildRedeemCollectionSchema(
     name: toText(title),
     description: toText(description),
     dateModified,
-    url: new URL(normalizedPath.startsWith('/') ? normalizedPath : `/${normalizedPath}`, siteUrl).toString(),
+    url: toAbsoluteUrl(normalizedPath, resolvedSiteUrl),
+    author: {
+      '@type': 'Person',
+      name: 'ASTA',
+      jobTitle: 'Lead FC Mobile Analyst',
+      worksFor: {
+        '@type': 'Organization',
+        name: 'ZenithFCM',
+        url: toAbsoluteUrl('/', resolvedSiteUrl)
+      }
+    },
+    reviewedBy: {
+      '@type': 'Organization',
+      name: 'ZenithFCM Editorial Team',
+      url: toAbsoluteUrl('/about-us', resolvedSiteUrl)
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'ZenithFCM',
+      url: toAbsoluteUrl('/', resolvedSiteUrl),
+      logo: {
+        '@type': 'ImageObject',
+        url: toAbsoluteUrl('/assets/images/zenith_logo_main.png', resolvedSiteUrl)
+      },
+      sameAs: [
+        'https://x.com/zenithfcm',
+        'https://discord.gg/HM2JajuQjQ',
+        'https://www.instagram.com/zenithfcm/'
+      ]
+    },
     mainEntity: {
       '@type': 'ItemList',
       numberOfItems: listEntries.length,
@@ -137,3 +202,4 @@ export function buildRedeemCollectionSchema(
     }
   });
 }
+

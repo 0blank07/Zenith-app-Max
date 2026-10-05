@@ -12,6 +12,7 @@ import SquadExportCapture from './SquadExportCapture.client';
 import { buildExportFallbackPlayers, buildExportMediaMap, clearExportMediaCache, waitForExportLoadState } from './squad-export-media';
 import AdsenseAd from './AdsenseAd';
 import { getPlayerCardVariant } from './player-detail-utils';
+import ContextualRedeemBanner from './ContextualRedeemBanner';
 
 const SquadPlayerCustomizationModal = dynamic(() => import('./SquadPlayerCustomizationModal'), {
   loading: () => null
@@ -3011,7 +3012,7 @@ export default function ToolsInteractions({ players = [], initialTool = '', filt
         ref={squadBuilderContainerRef}
         className={`squad-page-view${isSquadBuilderActive ? ' is-open' : ''}${isSquadFullscreen ? ' squad-fullscreen' : ''}`}
       >
-        <div className="squad-page-shell">
+        <div className="squad-page-shell" style={{ gridTemplateRows: 'auto auto minmax(0, 1fr)' }}>
           {/* Squad Builder region: top bar controls */}
           <div className="squad-header" data-squad-section="top-bar">
             <div className="squad-header-left">
@@ -3096,6 +3097,16 @@ export default function ToolsInteractions({ players = [], initialTool = '', filt
                 </button>
               </div>
             </div>
+          </div>
+
+          {/* Squad Builder contextual redeem codes promotion banner */}
+          <div className="squad-redeem-banner-wrap" style={{ width: '100%', minWidth: 0, zIndex: 2 }}>
+            <ContextualRedeemBanner
+              variant="compact"
+              source="squad-builder"
+              title="Need Coins or Packs to Build Your Squad?"
+              description="Redeem today's verified FC Mobile gift codes for free gems, player packs & coins."
+            />
           </div>
 
           {/* Squad Builder region: main content shell */}

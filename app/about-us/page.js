@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import StaticInfoPage from '../components/StaticInfoPage';
+import { buildRedeemOrganizationSchema, serializeJsonLd } from '../../src/lib/server/redeem-codes/schema.mjs';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://zenithfcm.com';
 
@@ -17,11 +18,18 @@ export const metadata = {
 };
 
 export default function AboutUsPage() {
+  const organizationSchema = buildRedeemOrganizationSchema(siteUrl);
+
   return (
-    <StaticInfoPage
-      title="About ZenithFCM"
-      intro="ZenithFCM is a comprehensive, independent resource dedicated to helping FC Mobile players make smarter decisions through data, speed, and practical tools."
-      sections={[
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(organizationSchema) }}
+      />
+      <StaticInfoPage
+        title="About ZenithFCM"
+        intro="ZenithFCM is a comprehensive, independent resource dedicated to helping FC Mobile players make smarter decisions through data, speed, and practical tools."
+        sections={[
         {
           heading: '1. About ZenithFCM',
           body: (
@@ -121,5 +129,6 @@ export default function AboutUsPage() {
         }
       ]}
     />
-  );
+  </>
+);
 }

@@ -66,6 +66,15 @@ const FOOTER_COLUMNS = Object.freeze([
     ]
   },
   {
+    title: 'Regions',
+    ariaLabel: 'Regional code hubs',
+    links: [
+      { label: 'Thailand (ไทย)', href: '/th/fc-mobile-code' },
+      { label: 'UAE (الإمارات)', href: '/ae/kod-fifa' },
+      { label: 'Spain (España)', href: '/es/codigos-de-canje-de-fc-mobile' }
+    ]
+  },
+  {
     title: 'Legal',
     ariaLabel: 'Legal links',
     links: [
@@ -85,7 +94,7 @@ function FooterNavLink({ href, label, meta = '' }) {
   );
 
   return (
-    <Link href={href} className="zenith-footer-link">
+    <Link href={href} className="zenith-footer-link" data-link="" data-nav-link="">
       {linkContent}
     </Link>
   );

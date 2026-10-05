@@ -133,7 +133,34 @@ function buildPagination(items, totalItems, page, pageSize) {
 function isMissingRedeemTableError(error) {
   const code = toText(error?.code);
   const message = toText(error?.message).toLowerCase();
-  return code === '42P01' || (message.includes('redeem_codes') && message.includes('does not exist'));
+  return (
+    code === '42P01' ||
+    (message.includes('redeem_code') && message.includes('does not exist'))
+  );
+}
+
+function isDatabaseOfflineError(error) {
+  if (!error) return false;
+  if (isMissingRedeemTableError(error)) return true;
+  const code = toText(error.code);
+  const message = toText(error.message).toLowerCase();
+  return (
+    code === 'ECONNREFUSED' ||
+    code === 'ENOTFOUND' ||
+    code === 'ETIMEDOUT' ||
+    code === '28P01' ||
+    code === '3D000' ||
+    code === '57P01' ||
+    code === '57P02' ||
+    code === '57P03' ||
+    message.includes('connection') ||
+    message.includes('connect econnrefused') ||
+    message.includes('timeout') ||
+    message.includes('client has encountered a connection error') ||
+    message.includes('password authentication failed') ||
+    message.includes('database_url is required') ||
+    message.includes('is required to use the blog postgresql data layer')
+  );
 }
 
 export async function getRedeemCodeById(id, options = {}) {
@@ -392,3 +419,137 @@ export async function deleteRedeemCode(id, options = {}) {
 
   return { id: deletedId };
 }
+
+export async function getRedeemCodeVotesBatch(codeIds, options = {}) {
+  const rawList = Array.isArray(codeIds)
+    ? codeIds
+    : (typeof codeIds === 'string' ? codeIds.split(',') : []);
+  const normalizedIds = [...new Set(rawList.map((id) => toText(id)).filter(Boolean))];
+
+  if (!normalizedIds.length) {
+    return {};
+  }
+
+  const result = {};
+  for (const id of normalizedIds) {
+    result[id] = { worked: 0, expired: 0 };
+  }
+
+  const query = `
+    SELECT code_id, worked_count, expired_count
+    FROM redeem_code_votes
+    WHERE code_id = ANY($1)
+  `;
+
+  try {
+    const queryResult = await runBlogQuery(query, [normalizedIds], options);
+    for (const row of queryResult.rows) {
+      const id = toText(row.code_id);
+      if (id && result[id]) {
+        result[id] = {
+          worked: Math.max(0, toInteger(row.worked_count, 0, 0)),
+          expired: Math.max(0, toInteger(row.expired_count, 0, 0))
+        };
+      }
+    }
+    return result;
+  } catch (error) {
+    if (isMissingRedeemTableError(error) || isDatabaseOfflineError(error)) {
+      return result;
+    }
+    throw error;
+  }
+}
+
+export async function recordRedeemCodeVote({ codeId, voteType, voterHash } = {}, options = {}) {
+  const normalizedCodeId = toText(codeId);
+  if (!normalizedCodeId) {
+    throw new Error('Redeem code ID is required.');
+  }
+
+  const normalizedVoteType = toText(voteType).toLowerCase();
+  if (normalizedVoteType !== 'worked' && normalizedVoteType !== 'expired') {
+    throw new Error('Invalid vote type. Must be "worked" or "expired".');
+  }
+
+  const normalizedVoterHash = toText(voterHash);
+
+  try {
+    return await withBlogTransaction(async (client) => {
+      // 24h throttling check if voterHash is provided
+      if (normalizedVoterHash) {
+        const throttleCheck = await client.query(
+          `
+            SELECT 1 FROM redeem_code_vote_logs
+            WHERE code_id = $1 AND voter_hash = $2 AND created_at > NOW() - INTERVAL '24 HOURS'
+            LIMIT 1
+          `,
+          [normalizedCodeId, normalizedVoterHash]
+        );
+
+        if (throttleCheck.rows.length > 0) {
+          const currentVotes = await client.query(
+            `
+              SELECT worked_count, expired_count
+              FROM redeem_code_votes
+              WHERE code_id = $1
+              LIMIT 1
+            `,
+            [normalizedCodeId]
+          );
+          const row = currentVotes.rows[0];
+          return {
+            codeId: normalizedCodeId,
+            worked: Math.max(0, toInteger(row?.worked_count, 0, 0)),
+            expired: Math.max(0, toInteger(row?.expired_count, 0, 0)),
+            throttled: true
+          };
+        }
+
+        await client.query(
+          `
+            INSERT INTO redeem_code_vote_logs (code_id, vote_type, voter_hash, created_at)
+            VALUES ($1, $2, $3, NOW())
+          `,
+          [normalizedCodeId, normalizedVoteType, normalizedVoterHash]
+        );
+      }
+
+      const workedInc = normalizedVoteType === 'worked' ? 1 : 0;
+      const expiredInc = normalizedVoteType === 'expired' ? 1 : 0;
+
+      const upsertResult = await client.query(
+        `
+          INSERT INTO redeem_code_votes (code_id, worked_count, expired_count, updated_at)
+          VALUES ($1, $2, $3, NOW())
+          ON CONFLICT (code_id)
+          DO UPDATE SET
+            worked_count = redeem_code_votes.worked_count + $2,
+            expired_count = redeem_code_votes.expired_count + $3,
+            updated_at = NOW()
+          RETURNING worked_count, expired_count
+        `,
+        [normalizedCodeId, workedInc, expiredInc]
+      );
+
+      const row = upsertResult.rows[0];
+      return {
+        codeId: normalizedCodeId,
+        worked: Math.max(0, toInteger(row?.worked_count, 0, 0)),
+        expired: Math.max(0, toInteger(row?.expired_count, 0, 0)),
+        throttled: false
+      };
+    }, options);
+  } catch (error) {
+    if (isMissingRedeemTableError(error) || isDatabaseOfflineError(error)) {
+      return {
+        codeId: normalizedCodeId,
+        worked: 0,
+        expired: 0,
+        offline: true
+      };
+    }
+    throw error;
+  }
+}
+

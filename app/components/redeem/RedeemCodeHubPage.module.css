@@ -683,3 +683,369 @@
   font-weight: inherit;
   color: inherit;
 }
+
+/* Verification Row & Badges (R1 & R6) */
+.verificationRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.verificationBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: rgba(34, 197, 94, 0.12);
+  border: 1px solid rgba(34, 197, 94, 0.35);
+  border-radius: 9999px;
+  color: #4ade80;
+  font-size: 0.85rem;
+  font-weight: 700;
+  min-height: 36px;
+  box-sizing: border-box;
+}
+
+.verificationCheck {
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+.verificationContent {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.verificationLabel {
+  color: #86efac;
+  font-weight: 700;
+}
+
+.verificationDate {
+  color: #ffffff;
+  font-weight: 800;
+}
+
+.trustBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  background: rgba(0, 194, 168, 0.1);
+  border: 1px solid rgba(0, 194, 168, 0.3);
+  border-radius: 9999px;
+  color: #00c2a8;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration: none;
+  min-height: 36px;
+  box-sizing: border-box;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.trustBadge:hover {
+  background: rgba(0, 194, 168, 0.2);
+  border-color: #00c2a8;
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(0, 194, 168, 0.2);
+}
+
+.trustIcon {
+  color: #00c2a8;
+  flex-shrink: 0;
+}
+
+/* Code button wrapper */
+.codeButtonWrapper {
+  width: 100%;
+}
+
+/* Community Verification Voting (R5) */
+.votingRow {
+  margin-top: 4px;
+  width: 100%;
+}
+
+.voteGroup {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.voteButton {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 12px;
+  height: 40px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #b5c5cb;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.voteButton:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
+}
+
+.voteButton:disabled {
+  cursor: default;
+  opacity: 0.8;
+}
+
+.voteWorked:hover:not(:disabled) {
+  border-color: rgba(74, 222, 128, 0.5);
+  color: #4ade80;
+}
+
+.voteActiveWorked {
+  background: rgba(34, 197, 94, 0.18) !important;
+  border-color: #22c55e !important;
+  color: #4ade80 !important;
+  opacity: 1 !important;
+  box-shadow: 0 0 12px rgba(34, 197, 94, 0.2);
+}
+
+.voteExpired:hover:not(:disabled) {
+  border-color: rgba(248, 113, 113, 0.5);
+  color: #f87171;
+}
+
+.voteActiveExpired {
+  background: rgba(239, 68, 68, 0.18) !important;
+  border-color: #ef4444 !important;
+  color: #f87171 !important;
+  opacity: 1 !important;
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.2);
+}
+
+.voteIcon {
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+.voteText {
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.voteCount {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 7px;
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+/* Welcome Back Modal (R4) */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(4, 9, 12, 0.82);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 16px;
+  animation: modalFadeIn 0.2s ease-out;
+}
+
+.modalCard {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  background: linear-gradient(165deg, rgba(16, 31, 38, 0.98), rgba(7, 13, 16, 1));
+  border: 1px solid rgba(0, 194, 168, 0.35);
+  border-radius: 24px;
+  padding: 32px 28px 24px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 194, 168, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  animation: modalScaleUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modalCloseButton {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94a3a8;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.modalCloseButton:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  transform: scale(1.08);
+}
+
+.modalHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+}
+
+.modalIcon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(0, 194, 168, 0.2), rgba(0, 194, 168, 0.05));
+  border: 1px solid rgba(0, 194, 168, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  box-shadow: 0 8px 20px rgba(0, 194, 168, 0.2);
+}
+
+.modalEyebrow {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #00c2a8;
+  margin-top: 4px;
+}
+
+.modalTitle {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1.3;
+}
+
+.modalDescription {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #b5c5cb;
+  line-height: 1.55;
+}
+
+.modalActions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.modalCtaPrimary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #00c2a8 0%, #008f7a 100%);
+  color: #070d10;
+  font-size: 1rem;
+  font-weight: 900;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 6px 20px rgba(0, 194, 168, 0.3);
+}
+
+.modalCtaPrimary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 194, 168, 0.45);
+}
+
+.modalCtaSecondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.modalCtaSecondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.modalFooter {
+  display: flex;
+  justify-content: center;
+}
+
+.modalDismissText {
+  background: none;
+  border: none;
+  color: #6a7c82;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 6px 12px;
+  transition: color 0.2s ease;
+}
+
+.modalDismissText:hover {
+  color: #b5c5cb;
+  text-decoration: underline;
+}
+
+.rtl .modalCloseButton {
+  left: 16px;
+  right: auto;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalScaleUp {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+

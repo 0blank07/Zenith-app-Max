@@ -1,6 +1,9 @@
 import { Fragment } from 'react';
 import Link from 'next/link';
 import CopyCodeButton from './CopyCodeButton.client';
+import RedeemVerificationBadge from './RedeemVerificationBadge.client';
+import RedeemVoteButtons from './RedeemVoteButtons.client';
+import RedeemWelcomeBackModal from './RedeemWelcomeBackModal.client';
 import AdsenseAd from '../AdsenseAd';
 import { getRedeemUiTranslations } from '../../../src/lib/server/redeem-codes/redeem-ui-i18n.mjs';
 import styles from './RedeemCodeHubPage.module.css';
@@ -33,7 +36,15 @@ const DEFAULT_COPY = Object.freeze({
   publishedLabel: 'Published',
   expiresLabel: 'Expires',
   copyButton: 'Copy Code',
-  copiedButton: 'Copied!'
+  copiedButton: 'Copied!',
+  voteWorked: 'Worked',
+  voteExpired: 'Expired',
+  verifiedByTeam: 'Verified by the ZenithFCM Team',
+  lastVerifiedWorking: 'Last Verified Working',
+  welcomeBackTitle: 'Code Copied! Level Up Your Squad',
+  welcomeBackCta: 'Explore Top 100 Players',
+  welcomeBackBrowseAll: 'Browse All Players',
+  welcomeBackDismiss: 'Continue Browsing Codes'
 });
 
 function formatDate(value, locale = 'en-US') {
@@ -57,13 +68,15 @@ function renderCodeCard(entry, locale, copy) {
       </div>
 
       <h3 className={styles.cardTitle}>{entry.title}</h3>
-      <CopyCodeButton 
-        codeValue={entry.codeValue} 
-        className={styles.codeButton} 
-        copiedLabel={copy.copiedButton} 
-        idleLabel={entry.codeValue} 
-        aria-label={copy.copyButton}
-      />
+      <div data-welcome-trigger="copy" className={styles.codeButtonWrapper}>
+        <CopyCodeButton 
+          codeValue={entry.codeValue} 
+          className={styles.codeButton} 
+          copiedLabel={copy.copiedButton} 
+          idleLabel={entry.codeValue} 
+          aria-label={copy.copyButton}
+        />
+      </div>
 
       {entry.status === 'active' && (
         <a 
@@ -71,6 +84,7 @@ function renderCodeCard(entry, locale, copy) {
           target="_blank" 
           rel="noopener noreferrer" 
           className={styles.redeemLink}
+          data-welcome-trigger="ea"
         >
           {copy.redeemAtEa || 'Redeem at EA Site'}
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: '8px' }}>
@@ -80,6 +94,16 @@ function renderCodeCard(entry, locale, copy) {
           </svg>
         </a>
       )}
+
+      <div className={styles.votingRow}>
+        <RedeemVoteButtons
+          codeId={entry.id}
+          initialWorked={entry.workedCount || 0}
+          initialExpired={entry.expiredCount || 0}
+          workedLabel={copy.voteWorked}
+          expiredLabel={copy.voteExpired}
+        />
+      </div>
 
       <div className={styles.cardFooter}>
         <span>
@@ -192,6 +216,27 @@ export default function RedeemCodeHubPage({ pageData }) {
                   <h2 className={styles.sectionTitle}>{copy.latestActiveCodes}</h2>
                   <span className={styles.sectionMeta}>{`${activeCodes.length} ${copy.activeCountSuffix}`}</span>
                 </div>
+                <div className={styles.verificationRow}>
+                  <RedeemVerificationBadge locale={locale} label={copy.lastVerifiedWorking} />
+                  <Link href="/about-us" className={styles.trustBadge}>
+                    <svg
+                      className={styles.trustIcon}
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                      <polyline points="9 12 11 14 15 10" />
+                    </svg>
+                    <span>{copy.verifiedByTeam}</span>
+                  </Link>
+                </div>
                 {activeCodes.length ? (
                   <div className={styles.cards}>{activeCodes.map((entry) => renderCodeCard(entry, locale, copy))}</div>
                 ) : (
@@ -275,6 +320,13 @@ export default function RedeemCodeHubPage({ pageData }) {
           </div>
         </section>
       )}
+
+      <RedeemWelcomeBackModal
+        title={copy.welcomeBackTitle}
+        ctaLabel={copy.welcomeBackCta}
+        browseAllLabel={copy.welcomeBackBrowseAll}
+        dismissLabel={copy.welcomeBackDismiss}
+      />
     </div>
   );
 }

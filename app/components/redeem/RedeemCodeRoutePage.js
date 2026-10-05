@@ -7,12 +7,14 @@ import {
   buildRedeemBreadcrumbSchema,
   buildRedeemCollectionSchema,
   buildRedeemFaqSchema,
+  buildRedeemOrganizationSchema,
   serializeJsonLd
 } from '../../../src/lib/server/redeem-codes/schema.mjs';
 import {
   buildRedeemRouteMetadata,
   getRedeemRoutePageData,
-  parseRedeemSearchParam
+  parseRedeemSearchParam,
+  getDynamicTitleAndH1
 } from '../../../src/lib/server/redeem-codes/seo.mjs';
 import RedeemCodeHubPage from './RedeemCodeHubPage';
 
@@ -56,13 +58,15 @@ async function renderRedeemRoutePage(routeConfig, searchParams = {}) {
   const schemaLanguage = resolveSchemaLanguage(routeConfig);
   const collectionDescription = [routeConfig.intro, routeConfig.globalCodeNote].filter(Boolean).join(' ');
   const schemaKeyBase = sanitizeSchemaKey(routeConfig.key || REDEEM_ROUTE_KEY.GLOBAL);
+  const { h1: dynamicH1 } = getDynamicTitleAndH1(routeConfig);
   const schemas = [
+    buildRedeemOrganizationSchema(),
     buildRedeemBreadcrumbSchema(routeConfig.breadcrumb, undefined, { inLanguage: schemaLanguage }),
     buildRedeemFaqSchema(pageData?.faq || [], { inLanguage: schemaLanguage }),
     pageData?.availability?.isConfigured === false
       ? null
       : buildRedeemCollectionSchema({
-          title: routeConfig.h1,
+          title: dynamicH1,
           description: collectionDescription,
           path: routeConfig.path,
           entries: schemaEntries,
@@ -71,8 +75,13 @@ async function renderRedeemRoutePage(routeConfig, searchParams = {}) {
   ].filter(Boolean);
 
   const { getPageH1Override, PageSeoH1, getPageCustomJsonLd, PageSeoCustomJsonLd } = await import('../../../src/lib/server/page-seo-metadata.mjs');
-  const h1Heading = await getPageH1Override(routeConfig.path);
+  const h1Heading = await getPageH1Override(routeConfig.path) || dynamicH1;
   const customJsonLd = await getPageCustomJsonLd(routeConfig.path);
+
+  const enhancedPageData = pageData ? {
+    ...pageData,
+    route: { ...pageData.route, h1: dynamicH1 }
+  } : pageData;
 
   return (
     <SiteChrome activeView="redeem">
@@ -86,7 +95,7 @@ async function renderRedeemRoutePage(routeConfig, searchParams = {}) {
             dangerouslySetInnerHTML={{ __html: serializeJsonLd(schema) }}
           />
         ))}
-        <RedeemCodeHubPage pageData={pageData} />
+        <RedeemCodeHubPage pageData={enhancedPageData} />
       </main>
     </SiteChrome>
   );
