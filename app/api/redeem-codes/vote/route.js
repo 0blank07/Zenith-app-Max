@@ -4,6 +4,7 @@ import {
   getRedeemCodeVotesBatch,
   recordRedeemCodeVote
 } from '../../../../src/lib/server/redeem-codes/repository.mjs';
+import { getSessionFromRequest } from '../../../../src/lib/server/auth/session.mjs';
 
 export const dynamic = 'force-dynamic';
 
@@ -20,10 +21,11 @@ function getClientIp(request) {
   return '127.0.0.1';
 }
 
-function getVoterHash(request) {
+function getVoterHash(request, userId) {
   const ip = getClientIp(request);
   const userAgent = request.headers.get('user-agent') || 'unknown';
-  return crypto.createHash('sha256').update(`${ip}:${userAgent}`).digest('hex');
+  // Use authenticated userId in hash to tie vote to account reliably
+  return crypto.createHash('sha256').update(`${userId}:${ip}:${userAgent}`).digest('hex');
 }
 
 export async function POST(request) {
@@ -34,6 +36,14 @@ export async function POST(request) {
     return NextResponse.json(
       { success: false, error: 'Invalid JSON request body.' },
       { status: 400 }
+    );
+  }
+
+  const session = await getSessionFromRequest(request);
+  if (!session) {
+    return NextResponse.json(
+      { success: false, error: 'Unauthorized. Please log in to vote.' },
+      { status: 401 }
     );
   }
 
@@ -55,7 +65,7 @@ export async function POST(request) {
   }
 
   try {
-    const voterHash = getVoterHash(request);
+    const voterHash = getVoterHash(request, session.user.id);
     const result = await recordRedeemCodeVote({
       codeId,
       voteType,

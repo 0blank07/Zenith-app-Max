@@ -1,6 +1,5 @@
 import PlayersDatabaseInteractions from '../components/PlayersDatabaseInteractions.client';
 import SiteChrome from '../components/SiteChrome';
-import ContextualRedeemBanner from '../components/ContextualRedeemBanner';
 import { buildPlayerPath } from '../../src/lib/player-slug.mjs';
 import { PLAYER_PAGE_REVALIDATE_SECONDS } from '../../src/lib/server/player-seo-contract.mjs';
 import { getPrerenderRolloutState } from '../../src/lib/server/prerender-rollout.mjs';
@@ -95,18 +94,7 @@ export default async function PlayersPage({ searchParams = {} }) {
       <PageSeoCustomJsonLd schema={customJsonLd} />
       <link rel="stylesheet" href="/assets/css/watchlist-styles.css" precedence="default" />
       <main className="players-main-content players-grid--database">
-        <div
-          className="players-redeem-banner-container"
-          style={{
-            width: '100%',
-            maxWidth: '1400px',
-            margin: '0 auto 1.5rem',
-            padding: '0 clamp(12px, 2vw, 24px)',
-            boxSizing: 'border-box'
-          }}
-        >
-          <ContextualRedeemBanner variant="default" source="players" />
-        </div>
+
         <PlayersDatabaseInteractions
           players={players}
           positions={positions}

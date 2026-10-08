@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import styles from './RedeemCodeHubPage.module.css';
-
+import { useAuth } from '../auth/AuthContext.client';
 const LOCAL_STORAGE_KEY = 'zenith_redeem_user_votes';
 
 // Module-level batching queue for GET /api/redeem-codes/vote?ids=...
@@ -106,8 +106,15 @@ export default function RedeemVoteButtons({
     };
   }, [codeId]);
 
+  const { authenticated, openAuthModal } = useAuth();
+
   const handleVote = async (voteType) => {
     if (!codeId || userVote || submitting) return;
+
+    if (!authenticated) {
+      openAuthModal({ promptText: 'Sign in with Google, Discord, or Facebook to verify this code.' });
+      return;
+    }
 
     setSubmitting(true);
     setUserVote(voteType);
