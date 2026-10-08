@@ -3,6 +3,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { getTopTickerConfig } from '../../src/lib/server/top-ticker-config.mjs';
+import { AuthProvider } from './auth/AuthContext.client';
+import SiteChromeAuth from './auth/SiteChromeAuth.client';
+import AuthModal from './auth/AuthModal.client';
+import AccountLinkingModal from './auth/AccountLinkingModal.client';
+import AuthToast from './auth/AuthToast.client';
 
 const MobileNavigation = dynamic(() => import('./MobileNavigation.client'), {
   ssr: true
@@ -33,7 +38,7 @@ export default function SiteChrome({ activeView = '', showSlider = false, childr
   const topTicker = getTopTickerConfig();
 
   return (
-    <>
+    <AuthProvider>
       <header className="header">
         <div className="header-content">
           <div className="logo">
@@ -100,9 +105,9 @@ export default function SiteChrome({ activeView = '', showSlider = false, childr
           </nav>
 
           <div className="header-actions">
-            <div className="user-avatar">
-              <div className="avatar-circle">FC</div>
-            </div>
+
+            <SiteChromeAuth />
+
           </div>
         </div>
       </header>
@@ -120,6 +125,9 @@ export default function SiteChrome({ activeView = '', showSlider = false, childr
       <SiteFooter />
 
       <SiteChromeInteractions />
-    </>
+      <AuthModal />
+      <AccountLinkingModal />
+      <AuthToast />
+    </AuthProvider>
   );
 }

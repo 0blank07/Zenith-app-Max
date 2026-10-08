@@ -5,6 +5,7 @@ import { closeBlogPool, getBlogPool } from '../../src/lib/server/blog/db.mjs';
 import { getBlogEnvironment, getBlogMigrationsDirectory } from '../../src/lib/server/blog/env.mjs';
 
 function loadScriptEnv() {
+  if (process.env.ZENITH_DB_TUNNELED === 'true') return;
   const root = process.cwd();
   dotenv.config({ path: path.join(root, '.env') });
   dotenv.config({ path: path.join(root, '.env.local'), override: true });
@@ -48,7 +49,11 @@ async function listMigrationFiles(migrationsDir) {
   const entries = await fs.readdir(migrationsDir, { withFileTypes: true });
 
   return entries
-    .filter((entry) => entry.isFile() && entry.name.toLowerCase().endsWith('.sql'))
+    .filter((entry) => (
+      entry.isFile() &&
+      entry.name.toLowerCase().endsWith('.sql') &&
+      !entry.name.toLowerCase().startsWith('rollback_')
+    ))
     .map((entry) => entry.name)
     .sort((left, right) => left.localeCompare(right, 'en'));
 }
