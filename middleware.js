@@ -141,7 +141,70 @@ export async function middleware(request) {
     }
   }
 
+  // --- 4. Dynamic Last-Modified Header & 304 for Redeem Code Routes ---
+  const cleanPath = pathname.length > 1 && pathname.endsWith('/') ? pathname.slice(0, -1) : pathname;
+  if (request.method === 'GET' && REDEEM_CODE_PATHS.has(cleanPath)) {
+    const lastModifiedDate = await getRedeemLastModifiedDate(cleanPath, request);
+    if (lastModifiedDate) {
+      const ifModifiedSince = request.headers.get('if-modified-since');
+      if (ifModifiedSince) {
+        const clientTime = new Date(ifModifiedSince).getTime();
+        if (!Number.isNaN(clientTime) && Math.floor(clientTime / 1000) >= Math.floor(lastModifiedDate.getTime() / 1000)) {
+          return new NextResponse(null, {
+            status: 304,
+            headers: {
+              'Last-Modified': lastModifiedDate.toUTCString(),
+              'Cache-Control': 'public, max-age=60, stale-while-revalidate=300'
+            }
+          });
+        }
+      }
+
+      const response = NextResponse.next();
+      response.headers.set('Last-Modified', lastModifiedDate.toUTCString());
+      return response;
+    }
+  }
+
   return NextResponse.next();
+}
+
+const REDEEM_CODE_PATHS = new Set([
+  '/fc-mobile-redeem-codes',
+  '/th/fc-mobile-code',
+  '/ae/kod-fifa',
+  '/es/codigos-de-canje-de-fc-mobile'
+]);
+
+async function getRedeemLastModifiedDate(cleanPath, request) {
+  try {
+    const port = process.env.PORT || 3000;
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 1000);
+    let res;
+    try {
+      res = await fetch(`http://127.0.0.1:${port}/api/internal/redeem-last-modified`, {
+        signal: controller.signal,
+        headers: { host: request.nextUrl.host }
+      });
+    } catch {
+      res = await fetch(`${request.nextUrl.origin}/api/internal/redeem-last-modified`, {
+        signal: controller.signal
+      });
+    }
+    clearTimeout(timeoutId);
+    if (res?.ok) {
+      const data = await res.json();
+      const rawDate = data?.[cleanPath] || data?.latest;
+      if (rawDate) {
+        const d = new Date(rawDate);
+        if (!Number.isNaN(d.getTime())) return d;
+      }
+    }
+  } catch (err) {
+    // Non-blocking fallback
+  }
+  return null;
 }
 
 export const config = {

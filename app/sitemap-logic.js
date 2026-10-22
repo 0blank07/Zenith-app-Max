@@ -1,6 +1,7 @@
 import { buildPlayerPath } from '../src/lib/player-slug.mjs';
 import { fetchPlayersByIds, readTopPlayerIds } from '../src/lib/server/top-players.mjs';
 import { getBlogSitemapEntries } from '../src/lib/server/blog/seo.mjs';
+import { getRedeemLatestModifiedDates } from '../src/lib/server/redeem-codes/repository.mjs';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://zenithfcm.com';
 export const STATIC_SITEMAP_ID = 0;
@@ -24,7 +25,7 @@ function splitIntoChunks(items, size) {
   return chunks;
 }
 
-export function getStaticEntries(lastModified) {
+export function getStaticEntries(lastModified, redeemLastModifiedMap = {}) {
   return [
     {
       url: toAbsoluteUrl('/'),
@@ -46,63 +47,27 @@ export function getStaticEntries(lastModified) {
     },
     {
       url: toAbsoluteUrl('/fc-mobile-redeem-codes'),
-      lastModified,
-      changeFrequency: 'daily',
-      priority: 0.92
-    },
-    {
-      url: toAbsoluteUrl('/fc-mobile-redeem-codes-today'),
-      lastModified,
-      changeFrequency: 'daily',
-      priority: 0.9
-    },
-    {
-      url: toAbsoluteUrl('/in/fc-mobile-redeem-codes'),
-      lastModified,
-      changeFrequency: 'daily',
-      priority: 0.86
-    },
-    {
-      url: toAbsoluteUrl('/id/kode-redeem-fc-mobile'),
-      lastModified,
-      changeFrequency: 'daily',
-      priority: 0.86
-    },
-    {
-      url: toAbsoluteUrl('/my/fc-mobile-redeem-codes'),
-      lastModified,
-      changeFrequency: 'daily',
-      priority: 0.86
-    },
-    {
-      url: toAbsoluteUrl('/vn/code-fc-mobile-vn'),
-      lastModified,
-      changeFrequency: 'daily',
-      priority: 0.86
+      lastModified: redeemLastModifiedMap['/fc-mobile-redeem-codes'] || lastModified,
+      changeFrequency: 'hourly',
+      priority: 0.95
     },
     {
       url: toAbsoluteUrl('/th/fc-mobile-code'),
-      lastModified,
-      changeFrequency: 'daily',
-      priority: 0.86
-    },
-    {
-      url: toAbsoluteUrl('/ph/ea-fc-mobile-redeem-codes'),
-      lastModified,
-      changeFrequency: 'daily',
-      priority: 0.86
-    },
-    {
-      url: toAbsoluteUrl('/us/ea-redeem-codes'),
-      lastModified,
-      changeFrequency: 'daily',
-      priority: 0.86
+      lastModified: redeemLastModifiedMap['/th/fc-mobile-code'] || lastModified,
+      changeFrequency: 'hourly',
+      priority: 0.9
     },
     {
       url: toAbsoluteUrl('/ae/kod-fifa'),
-      lastModified,
-      changeFrequency: 'daily',
-      priority: 0.86
+      lastModified: redeemLastModifiedMap['/ae/kod-fifa'] || lastModified,
+      changeFrequency: 'hourly',
+      priority: 0.9
+    },
+    {
+      url: toAbsoluteUrl('/es/codigos-de-canje-de-fc-mobile'),
+      lastModified: redeemLastModifiedMap['/es/codigos-de-canje-de-fc-mobile'] || lastModified,
+      changeFrequency: 'hourly',
+      priority: 0.9
     },
     ...['st', 'lw', 'rw', 'cam', 'cdm', 'cm', 'cb', 'lb', 'rb', 'gk'].map(pos => ({
       url: toAbsoluteUrl(`/top-10/${pos}`),
@@ -215,7 +180,13 @@ export default async function getSitemapData(id) {
   }
 
   if (sitemapId === STATIC_SITEMAP_ID) {
-    return getStaticEntries(lastModified);
+    let redeemLastModifiedMap = {};
+    try {
+      redeemLastModifiedMap = await getRedeemLatestModifiedDates();
+    } catch (e) {
+      console.error('[sitemap-logic] Error fetching redeem last modified dates:', e);
+    }
+    return getStaticEntries(lastModified, redeemLastModifiedMap);
   }
 
   const { playerChunks, blogSitemapId } = await resolveSitemapLayout();

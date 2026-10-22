@@ -5,6 +5,8 @@ import {
   recordRedeemCodeVote
 } from '../../../../src/lib/server/redeem-codes/repository.mjs';
 import { getSessionFromRequest } from '../../../../src/lib/server/auth/session.mjs';
+import { buildRedeemVoteRevalidationPaths } from '../../../../src/lib/server/redeem-codes/revalidation.mjs';
+import { revalidateAppPaths } from '../../../../src/lib/server/blog/revalidation.mjs';
 
 export const dynamic = 'force-dynamic';
 
@@ -71,6 +73,14 @@ export async function POST(request) {
       voteType,
       voterHash
     });
+
+    if (!result.throttled && !result.offline) {
+      try {
+        await revalidateAppPaths(buildRedeemVoteRevalidationPaths());
+      } catch (revalErr) {
+        console.error('[api/redeem-codes/vote] revalidation error:', revalErr);
+      }
+    }
 
     return NextResponse.json({
       success: true,

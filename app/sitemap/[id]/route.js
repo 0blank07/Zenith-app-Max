@@ -20,12 +20,24 @@ ${entries.map(entry => `  <url>
   </url>`).join('\n')}
 </urlset>`;
 
-    return new Response(xml, {
-      headers: {
-        'Content-Type': 'application/xml',
-        'Cache-Control': 'public, max-age=3600'
+    let newestLastMod = null;
+    for (const entry of entries) {
+      if (entry?.lastModified instanceof Date && !Number.isNaN(entry.lastModified.getTime())) {
+        if (!newestLastMod || entry.lastModified > newestLastMod) {
+          newestLastMod = entry.lastModified;
+        }
       }
-    });
+    }
+
+    const headers = {
+      'Content-Type': 'application/xml',
+      'Cache-Control': 'public, max-age=300, stale-while-revalidate=600'
+    };
+    if (newestLastMod) {
+      headers['Last-Modified'] = newestLastMod.toUTCString();
+    }
+
+    return new Response(xml, { headers });
   } catch (error) {
     console.error(`[sitemap-id-route] Error generating sitemap for ID ${params.id}:`, error);
     return new Response('Error generating sitemap', { status: 500 });

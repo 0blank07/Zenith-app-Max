@@ -22,6 +22,9 @@ export function buildRedeemRevalidationPaths({ previousCode = null, nextCode = n
   const targetPaths = new Set([
     '/',
     '/sitemap.xml',
+    '/sitemap/0',
+    '/sitemap/0.xml',
+    '/api/internal/redeem-last-modified',
     '/fc-mobile-redeem-codes'
   ]);
 
@@ -34,6 +37,19 @@ export function buildRedeemRevalidationPaths({ previousCode = null, nextCode = n
   }
 
   return [...targetPaths];
+}
+
+export function buildRedeemVoteRevalidationPaths() {
+  return [
+    '/sitemap.xml',
+    '/sitemap/0',
+    '/sitemap/0.xml',
+    '/api/internal/redeem-last-modified',
+    '/fc-mobile-redeem-codes',
+    '/th/fc-mobile-code',
+    '/ae/kod-fifa',
+    '/es/codigos-de-canje-de-fc-mobile'
+  ];
 }
 
 export function buildRedeemRevalidationPathsFromPayload(body = {}) {

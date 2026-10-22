@@ -350,6 +350,7 @@ export async function createRedeemCode(input = {}, options = {}) {
       [payload.title, payload.codeValue, payload.scope, payload.status, payload.publishedAt, payload.expiresAt]
     );
 
+    invalidateRedeemLastModifiedCache();
     return serializeRedeemCodeRow(result.rows[0] || null);
   }, options).catch((error) => {
     if (isMissingRedeemTableError(error)) {
@@ -377,13 +378,15 @@ export async function updateRedeemCode(id, input = {}, options = {}) {
           scope = $4,
           status = $5,
           published_at = $6,
-          expires_at = $7
+          expires_at = $7,
+          updated_at = NOW()
         WHERE id = $1
         RETURNING ${REDEEM_SELECT_COLUMNS}
       `,
       [existing.id, payload.title, payload.codeValue, payload.scope, payload.status, payload.publishedAt, payload.expiresAt]
     );
 
+    invalidateRedeemLastModifiedCache();
     return serializeRedeemCodeRow(result.rows[0] || null);
   }, options).catch((error) => {
     if (isMissingRedeemTableError(error)) {
@@ -417,6 +420,7 @@ export async function deleteRedeemCode(id, options = {}) {
     throw new Error(`Redeem code "${id}" no longer exists.`);
   }
 
+  invalidateRedeemLastModifiedCache();
   return { id: deletedId };
 }
 
@@ -533,6 +537,19 @@ export async function recordRedeemCodeVote({ codeId, voteType, voterHash } = {},
       );
 
       const row = upsertResult.rows[0];
+
+      // Touch parent redeem_codes.updated_at so page JSON-LD dateModified stays in sync with votes
+      await client.query(
+        `
+          UPDATE redeem_codes
+          SET updated_at = NOW()
+          WHERE id = $1
+        `,
+        [normalizedCodeId]
+      );
+
+      invalidateRedeemLastModifiedCache();
+
       return {
         codeId: normalizedCodeId,
         worked: Math.max(0, toInteger(row?.worked_count, 0, 0)),
@@ -550,6 +567,108 @@ export async function recordRedeemCodeVote({ codeId, voteType, voterHash } = {},
       };
     }
     throw error;
+  }
+}
+
+let cachedLatestModified = null;
+let cachedLatestModifiedExpiresAt = 0;
+
+export function invalidateRedeemLastModifiedCache() {
+  cachedLatestModified = null;
+  cachedLatestModifiedExpiresAt = 0;
+}
+
+export async function getRedeemLatestModifiedDates(options = {}) {
+  const now = Date.now();
+  if (cachedLatestModified && cachedLatestModifiedExpiresAt > now) {
+    return cachedLatestModified;
+  }
+
+  const defaultDate = new Date();
+  const routeDates = {
+    '/fc-mobile-redeem-codes': defaultDate,
+    '/th/fc-mobile-code': defaultDate,
+    '/ae/kod-fifa': defaultDate,
+    '/es/codigos-de-canje-de-fc-mobile': defaultDate,
+    latest: defaultDate
+  };
+
+  try {
+    const scopeQuery = `
+      SELECT
+        c.scope,
+        GREATEST(
+          MAX(GREATEST(c.updated_at, c.published_at, c.created_at)),
+          MAX(v.updated_at)
+        ) AS latest_modified
+      FROM redeem_codes c
+      LEFT JOIN redeem_code_votes v ON v.code_id = c.id
+      GROUP BY c.scope
+    `;
+
+    const overallVotesQuery = `
+      SELECT MAX(updated_at) AS latest_vote_modified
+      FROM redeem_code_votes
+    `;
+
+    const [scopeResult, overallVotesResult] = await Promise.all([
+      runBlogQuery(scopeQuery, [], options),
+      runBlogQuery(overallVotesQuery, [], options).catch(() => ({ rows: [] }))
+    ]);
+
+    const scopeMap = {};
+    for (const row of scopeResult.rows) {
+      if (row.scope && row.latest_modified) {
+        const d = new Date(row.latest_modified);
+        if (!Number.isNaN(d.getTime())) {
+          scopeMap[row.scope] = d;
+        }
+      }
+    }
+
+    let overallLatestVote = null;
+    const voteRowDate = overallVotesResult.rows?.[0]?.latest_vote_modified;
+    if (voteRowDate) {
+      const vd = new Date(voteRowDate);
+      if (!Number.isNaN(vd.getTime())) {
+        overallLatestVote = vd;
+      }
+    }
+
+    const globalDate = scopeMap[REDEEM_CODE_SCOPE.GLOBAL] || null;
+    const thDate = scopeMap[REDEEM_CODE_SCOPE.THAILAND] || null;
+    const aeDate = scopeMap[REDEEM_CODE_SCOPE.UAE] || null;
+    const esDate = scopeMap[REDEEM_CODE_SCOPE.SPAIN] || null;
+
+    const maxDate = (...dates) => {
+      const valid = dates.filter((d) => d instanceof Date && !Number.isNaN(d.getTime()));
+      if (!valid.length) return null;
+      return new Date(Math.max(...valid.map((d) => d.getTime())));
+    };
+
+    const resolvedGlobal = maxDate(globalDate, overallLatestVote) || defaultDate;
+    const resolvedTh = maxDate(globalDate, thDate, overallLatestVote) || resolvedGlobal;
+    const resolvedAe = maxDate(globalDate, aeDate, overallLatestVote) || resolvedGlobal;
+    const resolvedEs = maxDate(globalDate, esDate, overallLatestVote) || resolvedGlobal;
+    const resolvedLatest = maxDate(resolvedGlobal, resolvedTh, resolvedAe, resolvedEs, overallLatestVote) || defaultDate;
+
+    const result = {
+      '/fc-mobile-redeem-codes': resolvedGlobal,
+      '/th/fc-mobile-code': resolvedTh,
+      '/ae/kod-fifa': resolvedAe,
+      '/es/codigos-de-canje-de-fc-mobile': resolvedEs,
+      latest: resolvedLatest
+    };
+
+    cachedLatestModified = result;
+    cachedLatestModifiedExpiresAt = now + 5000;
+    return result;
+  } catch (error) {
+    if (isMissingRedeemTableError(error) || isDatabaseOfflineError(error)) {
+      return routeDates;
+    }
+    console.error('[redeem-codes] getRedeemLatestModifiedDates error:', error);
+    return routeDates;
   }
 }
 
