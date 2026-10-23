@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { listPublishedBlogsByCategory, updateBlog } from '../../../../src/lib/server/blog/repository.mjs';
-import { createRedeemCode } from '../../../../src/lib/server/redeem-codes/repository.mjs';
+import { createRedeemCode, updateRedeemCode } from '../../../../src/lib/server/redeem-codes/repository.mjs';
 import { runBlogQuery } from '../../../../src/lib/server/blog/db.mjs';
 import { REDEEM_CODE_SCOPE, REDEEM_CODE_STATUS } from '../../../../src/lib/server/redeem-codes/constants.mjs';
 import { revalidatePath } from 'next/cache';
@@ -156,25 +156,61 @@ export async function POST(req) {
         
         console.log(`[RedeemAutoUpdate] Starting update for code: ${code}. Is Expired? ${isExpired}`);
 
-        // 2. Add Code to Static Database (1 month expiry) if not already expired
+        // 2. Add or Update Code in Database (expiry left blank/null as requested)
         let savedCode = null;
         if (!isExpired) {
             const publishedAt = new Date();
-            const expiresAt = new Date();
-            expiresAt.setMonth(expiresAt.getMonth() + 1);
-            
+            const normalizedCode = code.trim().toUpperCase();
+
             try {
-                savedCode = await createRedeemCode({
-                    title: rewards,
-                    codeValue: code,
-                    scope: REDEEM_CODE_SCOPE.GLOBAL,
-                    status: REDEEM_CODE_STATUS.ACTIVE,
-                    publishedAt: publishedAt.toISOString(),
-                    expiresAt: expiresAt.toISOString()
-                });
-                console.log(`[RedeemAutoUpdate] Added ${code} to global static codes.`);
+                // Check if active code already exists
+                const existingResult = await runBlogQuery(
+                    `SELECT id FROM redeem_codes WHERE code_value ILIKE $1 AND status = 'active' LIMIT 1`,
+                    [normalizedCode]
+                );
+
+                if (existingResult.rows.length > 0) {
+                    const existingId = existingResult.rows[0].id;
+                    savedCode = await updateRedeemCode(existingId, {
+                        title: rewards.trim(),
+                        codeValue: normalizedCode,
+                        scope: REDEEM_CODE_SCOPE.GLOBAL,
+                        status: REDEEM_CODE_STATUS.ACTIVE,
+                        publishedAt: publishedAt.toISOString(),
+                        expiresAt: null
+                    });
+                    console.log(`[RedeemAutoUpdate] Updated existing code ${normalizedCode} in database.`);
+                } else {
+                    savedCode = await createRedeemCode({
+                        title: rewards.trim(),
+                        codeValue: normalizedCode,
+                        scope: REDEEM_CODE_SCOPE.GLOBAL,
+                        status: REDEEM_CODE_STATUS.ACTIVE,
+                        publishedAt: publishedAt.toISOString(),
+                        expiresAt: null
+                    });
+                    console.log(`[RedeemAutoUpdate] Added ${normalizedCode} to global codes with blank expiry.`);
+                }
             } catch (e) {
-                console.error(`[RedeemAutoUpdate] Failed to add to static database (might already exist):`, e);
+                console.error(`[RedeemAutoUpdate] Failed to save code to database:`, e);
+            }
+        } else {
+            try {
+                const normalizedCode = code.trim().toUpperCase();
+                const existingResult = await runBlogQuery(
+                    `SELECT id FROM redeem_codes WHERE code_value ILIKE $1 AND status = 'active' LIMIT 1`,
+                    [normalizedCode]
+                );
+                if (existingResult.rows.length > 0) {
+                    const existingId = existingResult.rows[0].id;
+                    savedCode = await updateRedeemCode(existingId, {
+                        status: REDEEM_CODE_STATUS.EXPIRED,
+                        expiresAt: new Date().toISOString()
+                    });
+                    console.log(`[RedeemAutoUpdate] Marked code ${normalizedCode} as expired in database.`);
+                }
+            } catch (e) {
+                console.error(`[RedeemAutoUpdate] Failed to expire code in database:`, e);
             }
         }
         
