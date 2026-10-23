@@ -79,6 +79,13 @@ export function getBlogDatabaseConfig(rawEnv = process.env) {
     connectionString = parsedUrl.toString();
   }
 
+  if (parsedUrl.hostname === '139.162.13.26' && process.cwd() !== '/var/www/zenith') {
+    const tunnelPort = rawEnv.PG_PORT || rawEnv.ZENITH_DB_TUNNEL_PORT || '15432';
+    parsedUrl.hostname = '127.0.0.1';
+    parsedUrl.port = String(tunnelPort);
+    connectionString = parsedUrl.toString();
+  }
+
   return {
     connectionString,
     ssl: requiresSsl ? { rejectUnauthorized: false } : environment.ssl,

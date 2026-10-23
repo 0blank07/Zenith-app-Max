@@ -5,6 +5,7 @@
   "scripts": {
     "predev": "node scripts/prepare-legacy.mjs",
     "dev": "node scripts/build-with-db-tunnel.mjs dev",
+    "tunnel": "ssh -N -L 15432:127.0.0.1:5432 zenith",
     "build": "node scripts/build-with-db-tunnel.mjs",
     "start": "next start",
     "lint": "next lint",
