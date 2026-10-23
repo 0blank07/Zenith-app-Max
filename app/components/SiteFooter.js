@@ -71,7 +71,8 @@ const FOOTER_COLUMNS = Object.freeze([
     links: [
       { label: 'Thailand (ไทย)', href: '/th/fc-mobile-code' },
       { label: 'UAE (الإمارات)', href: '/ae/kod-fifa' },
-      { label: 'Spain (España)', href: '/es/codigos-de-canje-de-fc-mobile' }
+      { label: 'Spain (España)', href: '/es/codigos-fc-mobile' }
+
     ]
   },
   {

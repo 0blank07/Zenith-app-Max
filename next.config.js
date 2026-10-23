@@ -49,7 +49,7 @@ const nextConfig = {
       },
       {
         source: '/es',
-        destination: '/es/codigos-de-canje-de-fc-mobile',
+        destination: '/es/codigos-fc-mobile',
         permanent: true,
       }
     ];

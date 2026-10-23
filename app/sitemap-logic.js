@@ -64,8 +64,8 @@ export function getStaticEntries(lastModified, redeemLastModifiedMap = {}) {
       priority: 0.9
     },
     {
-      url: toAbsoluteUrl('/es/codigos-de-canje-de-fc-mobile'),
-      lastModified: redeemLastModifiedMap['/es/codigos-de-canje-de-fc-mobile'] || lastModified,
+      url: toAbsoluteUrl('/es/codigos-fc-mobile'),
+      lastModified: redeemLastModifiedMap['/es/codigos-fc-mobile'] || lastModified,
       changeFrequency: 'hourly',
       priority: 0.9
     },

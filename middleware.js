@@ -29,7 +29,8 @@ export async function middleware(request) {
     '/de/fc-mobile-einloesecodes',
     '/tr/fc-mobil-kullanim-kodlari',
     '/ru/fc-mobile-promo-code',
-    '/my/fc-mobile-redeem-codes'
+    '/my/fc-mobile-redeem-codes',
+    '/es/codigos-de-canje-de-fc-mobile'
   ];
   
   if (gonePaths.includes(pathname) || pathname.startsWith('/blogs/redeem-codes/')) {
@@ -173,7 +174,8 @@ const REDEEM_CODE_PATHS = new Set([
   '/fc-mobile-redeem-codes',
   '/th/fc-mobile-code',
   '/ae/kod-fifa',
-  '/es/codigos-de-canje-de-fc-mobile'
+  '/es/codigos-fc-mobile'
+
 ]);
 
 async function getRedeemLastModifiedDate(cleanPath, request) {

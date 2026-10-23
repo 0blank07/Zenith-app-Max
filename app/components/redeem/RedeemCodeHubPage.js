@@ -305,6 +305,27 @@ export default function RedeemCodeHubPage({ pageData }) {
         </>
       )}
 
+      {Array.isArray(copy.guideSections) && copy.guideSections.length > 0 && (
+        <section className={styles.guideContainer} aria-label="Guía y Consejos de Códigos">
+          {copy.guideSections.map((sec, idx) => (
+            <article key={idx} className={styles.guideCard}>
+              {sec.title && <h2 className={styles.guideTitle}>{sec.title}</h2>}
+              {sec.intro && <p className={styles.guideIntro}>{sec.intro}</p>}
+              {Array.isArray(sec.paragraphs) && sec.paragraphs.map((p, pIdx) => (
+                <p key={pIdx} className={styles.guideText}>{p}</p>
+              ))}
+              {Array.isArray(sec.bullets) && (
+                <ul className={styles.guideList}>
+                  {sec.bullets.map((b, bIdx) => (
+                    <li key={bIdx} className={styles.guideListItem}>{b}</li>
+                  ))}
+                </ul>
+              )}
+            </article>
+          ))}
+        </section>
+      )}
+
       {faqEntries.length > 0 && (
         <section className={styles.faq}>
           <h2 className={styles.faqTitle}>{copy.faqTitle}</h2>

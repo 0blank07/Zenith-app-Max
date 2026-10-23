@@ -28,7 +28,7 @@ export async function GET() {
         '/fc-mobile-redeem-codes': nowIso,
         '/th/fc-mobile-code': nowIso,
         '/ae/kod-fifa': nowIso,
-        '/es/codigos-de-canje-de-fc-mobile': nowIso,
+        '/es/codigos-fc-mobile': nowIso,
         latest: nowIso
       },
       { status: 200 }

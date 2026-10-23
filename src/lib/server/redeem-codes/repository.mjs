@@ -589,7 +589,7 @@ export async function getRedeemLatestModifiedDates(options = {}) {
     '/fc-mobile-redeem-codes': defaultDate,
     '/th/fc-mobile-code': defaultDate,
     '/ae/kod-fifa': defaultDate,
-    '/es/codigos-de-canje-de-fc-mobile': defaultDate,
+    '/es/codigos-fc-mobile': defaultDate,
     latest: defaultDate
   };
 
@@ -656,7 +656,7 @@ export async function getRedeemLatestModifiedDates(options = {}) {
       '/fc-mobile-redeem-codes': resolvedGlobal,
       '/th/fc-mobile-code': resolvedTh,
       '/ae/kod-fifa': resolvedAe,
-      '/es/codigos-de-canje-de-fc-mobile': resolvedEs,
+      '/es/codigos-fc-mobile': resolvedEs,
       latest: resolvedLatest
     };
 

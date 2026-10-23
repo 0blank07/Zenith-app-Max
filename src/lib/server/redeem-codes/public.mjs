@@ -10,7 +10,7 @@ import {
 import { getNewestActiveRedeemCode, listPublicRedeemCodes } from './repository.mjs';
 import { getFaqsByScope } from './faq-repository.mjs';
 
-const { cache } = React;
+const cache = typeof React.cache === 'function' ? React.cache : (fn) => fn;
 
 const REDEEM_SETUP_TITLE = 'Redeem code CMS is not configured yet';
 const REDEEM_SETUP_DESCRIPTION =

@@ -34,6 +34,7 @@ const REDEEM_ALTERNATE_ROUTE_KEYS = Object.freeze([
   REDEEM_ROUTE_KEY.THAILAND,
   REDEEM_ROUTE_KEY.UAE,
   REDEEM_ROUTE_KEY.SPAIN
+
 ]);
 
 function buildLanguageAlternates() {
@@ -72,7 +73,8 @@ export function getDynamicTitleAndH1(routeConfig) {
     REDEEM_ROUTE_KEY.GLOBAL,
     REDEEM_ROUTE_KEY.THAILAND,
     REDEEM_ROUTE_KEY.UAE,
-    REDEEM_ROUTE_KEY.SPAIN
+  REDEEM_ROUTE_KEY.SPAIN
+  
   ];
 
   if (TARGET_KEYS.includes(routeConfig?.key)) {

@@ -3,7 +3,7 @@ import { BLOG_FIXED_CATEGORIES, BLOG_MAX_PAGE_SIZE } from './constants.mjs';
 import { getBlogArticlePageData, getBlogCategoryPageData, getBlogIndexPageData, getBlogPublicAvailability, getBlogTagPageData } from './public.mjs';
 import { listBlogCategories, listPublishedBlogs } from './repository.mjs';
 
-const { cache } = React;
+const cache = typeof React.cache === 'function' ? React.cache : (fn) => fn;
 
 export const BLOG_ROUTE_REVALIDATE_SECONDS = 60 * 60;
 

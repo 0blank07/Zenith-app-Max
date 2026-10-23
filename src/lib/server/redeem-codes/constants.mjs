@@ -476,7 +476,7 @@ export const REDEEM_ROUTE_CONFIG = Object.freeze({
   },
   [REDEEM_ROUTE_KEY.SPAIN]: {
     key: REDEEM_ROUTE_KEY.SPAIN,
-    path: '/es/codigos-de-canje-de-fc-mobile',
+    path: '/es/codigos-fc-mobile',
     scope: REDEEM_CODE_SCOPE.SPAIN,
     includeGlobalScope: true,
     sharedGlobalCodes: true,
@@ -485,41 +485,101 @@ export const REDEEM_ROUTE_CONFIG = Object.freeze({
     navLabel: 'Spain',
     locale: 'es-ES',
     hreflang: 'es',
-    primaryKeyword: 'Códigos de Canje de FC Mobile',
-    secondaryKeywords: ['codigos fc mobile españa', 'canjear codigo fc mobile'],
-    title: 'Códigos de Canje de FC Mobile España | Lista Global',
+    primaryKeyword: 'Códigos FC Mobile',
+    secondaryKeywords: [
+      'codigos de fc mobile',
+      'códigos fc mobile hoy',
+      'códigos de canje de fc mobile',
+      'fc mobile codigos',
+      'codigo fc mobile',
+      'recompensas fc mobile'
+    ],
+    title: 'Códigos FC Mobile: Códigos de Canje y Recompensas Gratis',
     metaDescription:
-      'Códigos de canje de FC Mobile para jugadores en España. Lista global con actualizaciones diarias, estado de los códigos y respuestas claras.',
-    h1: 'Códigos de Canje de FC Mobile para España',
+      'Consulta los últimos códigos de FC Mobile con recompensas gratis, jugadores garantizados, gemas y vouchers. Guía paso a paso y solución a problemas de canje.',
+    h1: 'Códigos FC Mobile: Todos los Códigos de Canje Activos',
     intro:
-      'Sigue los códigos de canje globales de FC Mobile para jugadores de España. Comprueba las recompensas activas y canjea rápidamente.',
+      '¿Buscas los últimos códigos de FC Mobile para conseguir recompensas gratis? Consulta nuestra lista actualizada de códigos de canje activos, recompensas gratuitas, tutorial paso a paso y respuestas a problemas habituales para jugadores de España y Latinoamérica.',
     globalCodeNote:
-      'La mayoría de los códigos son globales, no exclusivos de España. Si EA restringe una campaña por territorio, lo indicaremos claramente.',
+      'Los códigos de canje son una de las formas más sencillas de conseguir recompensas gratis en FC Mobile sin gastar FC Points ni Coins. La mayoría de los códigos son globales y aplican a todas las cuentas vinculadas.',
     copy: {
-      eyebrow: 'Guía para jugadores de España',
-      lastUpdatedLabel: 'Última actualización para jugadores en España:'
+      eyebrow: 'Guía de Códigos para España y Latinoamérica',
+      lastUpdatedLabel: 'Última actualización verificada:',
+      guideSections: [
+        {
+          title: '¿Por qué vale la pena canjear los códigos de FC Mobile?',
+          intro:
+            'Los códigos promocionales de FC Mobile ofrecen a los jugadores la oportunidad de mejorar sus plantillas y desbloquear contenido exclusivo sin coste adicional. Dependiendo del evento activo de EA Sports, las recompensas pueden incluir:',
+          bullets: [
+            'Sobres de jugadores garantizados de alta valoración (OVR 110–118)',
+            'Draft Vouchers para participar en torneos competitivos',
+            'Gemas (Gems) y Monedas (Coins) gratis para la tienda',
+            'Rank Up Tokens (Rup) y puntos de entrenamiento para subir de rango',
+            'Kits y camisetas exclusivas de clubes y selecciones',
+            'Objetos de eventos por tiempo limitado y fragmentos (Shards)'
+          ]
+        },
+        {
+          title: '¿Por qué no funciona mi código de canje?',
+          intro:
+            'Si introduces un código y la página de EA muestra un error, revisa las causas más frecuentes:',
+          bullets: [
+            'El código ha expirado: Los códigos de FC Mobile suelen durar pocos días o tienen un límite máximo de canjes globales.',
+            'Ya has canjeado el código: La gran mayoría de los códigos solo se pueden reclamar una única vez por cuenta.',
+            'Cuenta de EA incorrecta: Asegúrate de iniciar sesión con la cuenta de EA que tienes vinculada a tu perfil en la app de FC Mobile.',
+            'Error al escribir el código: Los códigos distinguen mayúsculas y no deben contener espacios al inicio o al final. Te recomendamos usar nuestro botón "Copiar código".'
+          ]
+        },
+        {
+          title: '¿Dónde encontrar más códigos oficiales de FC Mobile?',
+          paragraphs: [
+            'Los nuevos códigos de canje de FC Mobile suelen aparecer durante grandes eventos de temporada (como TOTY, TOTS, eventos de aniversario), transmisiones oficiales en directo en Twitch y YouTube, celebraciones de la comunidad y colaboraciones especiales de EA Sports.',
+            'En ZenithFCM monitorizamos todas las fuentes oficiales de EA para actualizar esta página al instante. Añade esta página a tus marcadores para no perderte ningún código antes de que expire.'
+          ]
+        }
+      ]
     },
     faqEntries: [
       {
-        question: '¿Estos códigos son exclusivos de España?',
+        question: '¿Cuáles son los últimos códigos de canje de FC Mobile activos?',
         answer:
-          'No. Esta página rastrea principalmente códigos globales de FC Mobile. Cualquier restricción regional de EA se indicará claramente.'
+          'Los códigos de canje activos más recientes se muestran en la parte superior de esta página en tiempo real. En ZenithFCM actualizamos la lista diariamente verificando qué códigos siguen funcionando y cuáles han expirado.'
       },
       {
-        question: '¿Por qué hay una página para España si los códigos son globales?',
+        question: '¿Cómo puedo canjear códigos en FC Mobile paso a paso?',
         answer:
-          'Para ofrecer textos y preguntas frecuentes en español de España, manteniendo la misma fuente de códigos globales.'
+          'Para canjear tus códigos: 1) Elige y copia un código activo de nuestra lista. 2) Abre la web oficial de canje de EA (redeem.fcm.ea.com). 3) Inicia sesión con la cuenta de EA vinculada a tu juego. 4) Pega el código en la casilla correspondiente y confirma. 5) Abre FC Mobile y recoge tus recompensas en el buzón del juego.'
       },
       {
-        question: '¿Puede fallar un código global en cuentas de España?',
+        question: '¿Por qué no funciona mi código de canje de FC Mobile?',
         answer:
-          'Sí. Un código puede fallar por caducidad, límite de canjes, requisitos de la cuenta o si EA excluye tu región.'
+          'Si tu código no funciona, comprueba si ya ha caducado, si ya lo canjeaste previamente en tu cuenta, o si has iniciado sesión con una cuenta de EA diferente a la vinculada a tu juego. También asegúrate de no introducir espacios adicionales.'
+      },
+      {
+        question: '¿Qué recompensas gratuitas ofrecen los códigos promocionales?',
+        answer:
+          'Los códigos pueden otorgar sobres de jugadores garantizados con alta media OVR, Draft Vouchers, Gemas, Rank Up Tokens (Rup), monedas (Coins), puntos de habilidad y camisetas exclusivas de temporada.'
+      },
+      {
+        question: '¿Los códigos de canje de FC Mobile caducan?',
+        answer:
+          'Sí. La mayoría de los códigos de canje están disponibles durante un tiempo muy limitado o cuentan con un cupo máximo de canjes globales. Por ello, es recomendable canjearlos tan pronto como se publiquen.'
+      },
+      {
+        question: '¿Dónde se publican los nuevos códigos de FC Mobile?',
+        answer:
+          'EA Sports publica códigos sorpresa durante directos oficiales de Twitch/YouTube, eventos de temporada del juego, campañas en redes sociales y festividades especiales. En ZenithFCM recopilamos y verificamos todos los códigos nuevos al instante.'
+      },
+      {
+        question: '¿Estos códigos funcionan en España y Latinoamérica?',
+        answer:
+          'Sí. La inmensa mayoría de los códigos de FC Mobile son globales y funcionan perfectamente en cuentas de España y todos los países de habla hispana en Latinoamérica (México, Argentina, Colombia, Chile, Perú, etc.). Si un código fuese regional, lo especificaremos con una etiqueta.'
       }
     ],
     breadcrumb: [
       { name: 'Home', path: '/' },
       { name: 'FC Mobile Redeem Codes', path: '/fc-mobile-redeem-codes' },
-      { name: 'Spain', path: '/es/codigos-de-canje-de-fc-mobile' }
+      { name: 'Spain', path: '/es/codigos-fc-mobile' }
     ]
   },
   [REDEEM_ROUTE_KEY.TURKEY]: {
@@ -626,6 +686,7 @@ export const REDEEM_LAUNCHED_LINKS = Object.freeze(
     REDEEM_ROUTE_KEY.THAILAND,
     REDEEM_ROUTE_KEY.UAE,
     REDEEM_ROUTE_KEY.SPAIN
+
   ].map((routeKey) => ({
     label: REDEEM_ROUTE_CONFIG[routeKey].navLabel,
     href: REDEEM_ROUTE_CONFIG[routeKey].path
@@ -638,6 +699,7 @@ export const REDEEM_SCOPE_TO_PUBLISHED_PATHS = Object.freeze({
     REDEEM_ROUTE_CONFIG[REDEEM_ROUTE_KEY.THAILAND].path,
     REDEEM_ROUTE_CONFIG[REDEEM_ROUTE_KEY.UAE].path,
     REDEEM_ROUTE_CONFIG[REDEEM_ROUTE_KEY.SPAIN].path
+
   ],
   [REDEEM_CODE_SCOPE.INDONESIA]: [REDEEM_ROUTE_CONFIG[REDEEM_ROUTE_KEY.INDONESIA].path],
   [REDEEM_CODE_SCOPE.MALAYSIA]: [REDEEM_ROUTE_CONFIG[REDEEM_ROUTE_KEY.MALAYSIA].path],

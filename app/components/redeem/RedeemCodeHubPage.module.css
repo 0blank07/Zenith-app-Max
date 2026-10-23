@@ -1049,3 +1049,72 @@
   }
 }
 
+
+/* Editorial Guide Sections */
+.guideContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin: 36px 0;
+}
+
+.guideCard {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 24px 28px;
+  transition: border-color 0.2s ease;
+}
+
+.guideCard:hover {
+  border-color: rgba(34, 197, 94, 0.25);
+}
+
+.guideTitle {
+  margin: 0 0 14px 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #f1f5f9;
+  line-height: 1.4;
+}
+
+.guideIntro {
+  margin: 0 0 14px 0;
+  color: #94a3b8;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.guideText {
+  margin: 0 0 12px 0;
+  color: #cbd5e1;
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+.guideList {
+  margin: 12px 0 0 0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.guideListItem {
+  color: #cbd5e1;
+  font-size: 0.93rem;
+  line-height: 1.6;
+}
+
+.guideListItem::marker {
+  color: #22c55e;
+}
+
+@media (max-width: 768px) {
+  .guideCard {
+    padding: 18px 16px;
+  }
+  .guideTitle {
+    font-size: 1.1rem;
+  }
+}

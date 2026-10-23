@@ -48,7 +48,7 @@ export function buildRedeemVoteRevalidationPaths() {
     '/fc-mobile-redeem-codes',
     '/th/fc-mobile-code',
     '/ae/kod-fifa',
-    '/es/codigos-de-canje-de-fc-mobile'
+    '/es/codigos-fc-mobile'
   ];
 }
 
