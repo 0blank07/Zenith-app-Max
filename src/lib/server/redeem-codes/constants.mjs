@@ -80,7 +80,7 @@ export const REDEEM_ROUTE_CONFIG = Object.freeze({
     intro:
       'Use this FC Mobile redeem code tracker to check active rewards first, then copy any working code in one tap.',
     globalCodeNote:
-      'Most FC Mobile redeem codes are shared worldwide. If EA marks a promotion as country-limited, we call that out directly in the listing.',
+      'Most FC Mobile redeem codes are shared worldwide. For localized guides and community updates in Spanish, visit our Códigos FC Mobile hub.',
     copy: {
       eyebrow: 'Redeem code tracker',
       lastUpdatedLabel: 'List updated:'
@@ -499,7 +499,7 @@ export const REDEEM_ROUTE_CONFIG = Object.freeze({
       'Consulta los últimos códigos de FC Mobile con recompensas gratis, jugadores garantizados, gemas y vouchers. Guía paso a paso y solución a problemas de canje.',
     h1: 'Códigos FC Mobile: Lista de Canje y Recompensas Activas',
     intro:
-      '¿Buscas los últimos códigos de FC Mobile para conseguir recompensas gratis? Consulta nuestra lista actualizada de códigos de canje activos, recompensas gratuitas, tutorial paso a paso y respuestas a problemas habituales para jugadores de Latinoamérica y España.',
+      '¿Buscas los códigos FC Mobile hoy para conseguir recompensas gratis? Consulta nuestra lista actualizada de fc mobile códigos activos, recompensas garantizadas, tutorial paso a paso y respuestas a problemas habituales para jugadores de Latinoamérica y España.',
     globalCodeNote:
       'Los códigos de canje son una de las formas más sencillas de conseguir recompensas gratis en FC Mobile sin gastar FC Points ni Coins. La mayoría de los códigos son globales y aplican a todas las cuentas vinculadas.',
     copy: {
@@ -534,16 +534,16 @@ export const REDEEM_ROUTE_CONFIG = Object.freeze({
           title: '¿Dónde encontrar más códigos oficiales de FC Mobile?',
           paragraphs: [
             'Los nuevos códigos de canje de FC Mobile suelen aparecer durante grandes eventos de temporada (como TOTY, TOTS, eventos de aniversario), transmisiones oficiales en directo en Twitch y YouTube, celebraciones de la comunidad y colaboraciones especiales de EA Sports.',
-            'En ZenithFCM monitoreamos todas las fuentes oficiales de EA para actualizar esta página al instante. Añade esta página a tus marcadores para no perderte ningún código antes de que expire.'
+            'En ZenithFCM monitoreamos todas las fuentes oficiales de EA para actualizar esta página al instante con los códigos FC Mobile hoy. Añade esta página a tus marcadores para no perderte ningún código antes de que expire.'
           ]
         }
       ]
     },
     faqEntries: [
       {
-        question: '¿Cuáles son los últimos códigos de canje de FC Mobile activos?',
+        question: '¿Cuáles son los últimos códigos de canje de FC Mobile activos hoy?',
         answer:
-          'Los códigos de canje activos más recientes se muestran en la parte superior de esta página en tiempo real. En ZenithFCM actualizamos la lista diariamente verificando qué códigos siguen funcionando y cuáles han expirado.'
+          'Los códigos de canje activos más recientes se muestran en la parte superior de esta página en tiempo real. En ZenithFCM actualizamos la lista diariamente verificando qué códigos de FC Mobile siguen funcionando hoy y cuáles han expirado.'
       },
       {
         question: '¿Cómo puedo canjear códigos en FC Mobile paso a paso?',

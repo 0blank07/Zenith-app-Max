@@ -49,7 +49,7 @@ export default function RootLayout({ children }) {
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){var p=window.location.pathname||'';var isArabic=(p==='/ae/kod-fifa'||p.indexOf('/ae/kod-fifa/')===0);if(isArabic){var root=document.documentElement;root.lang='ar';root.dir='rtl';}})();`
+            __html: `(function(){var p=window.location.pathname||'';var root=document.documentElement;if(p==='/ae/kod-fifa'||p.indexOf('/ae/kod-fifa/')===0){root.lang='ar';root.dir='rtl';}else if(p==='/es/codigos-fc-mobile'||p.indexOf('/es/codigos-fc-mobile/')===0){root.lang='es';root.removeAttribute('dir');}else if(p==='/th/fc-mobile-code'||p.indexOf('/th/fc-mobile-code/')===0){root.lang='th';root.removeAttribute('dir');}})();`
           }}
         />
         <meta charSet="utf-8" />

@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+
 import CopyCodeButton from './CopyCodeButton.client';
 import styles from './RedeemCodeHomeWidget.module.css';
 
@@ -15,7 +17,7 @@ export default function RedeemCodeHomeWidget({ codeEntry }) {
             <span className={styles.dot} />
             LIVE REDEEM CODE
           </span>
-          <h2 className={styles.title}>FC Mobile Redeem Codes</h2>
+          <h2 className={styles.title}><Link href="/fc-mobile-redeem-codes">FC Mobile Redeem Codes</Link></h2>
           <p className={styles.subtext}>Redeem codes to earn exclusive rewards.</p>
         </div>
 
