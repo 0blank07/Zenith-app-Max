@@ -73,7 +73,7 @@ export const REDEEM_ROUTE_CONFIG = Object.freeze({
     hreflang: 'en',
     primaryKeyword: 'fc mobile redeem codes',
     secondaryKeywords: ['fc mobile redeem code', 'latest fc mobile redeem codes', 'fc mobile codes list'],
-    title: 'FC Mobile Redeem Codes',
+    title: 'FC Mobile Redeem Codes – Working Rewards Tracker',
     metaDescription:
       'FC Mobile redeem codes with active, latest, and expired tracking. Built for players in every country without fake regional exclusives.',
     h1: 'FC Mobile Redeem Codes',
