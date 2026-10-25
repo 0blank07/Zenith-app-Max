@@ -59,6 +59,7 @@ export default function AdsenseAd({ slot, format = 'auto', layout = '', layoutKe
 
   // Reserve space based on format to reduce CLS
   const defaultMinHeight = format === 'autorelaxed' ? '500px' : (format === 'fluid' || layout === 'in-article') ? '120px' : '280px';
+  const resolvedMinHeight = style?.minHeight || defaultMinHeight;
 
   return (
     <div 
@@ -66,10 +67,14 @@ export default function AdsenseAd({ slot, format = 'auto', layout = '', layoutKe
       style={{ 
         margin: '32px 0', 
         textAlign: 'center', 
-        minHeight: style.minHeight || defaultMinHeight, 
+        minHeight: resolvedMinHeight, 
         overflow: 'hidden',
         width: '100%',
         clear: 'both',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        contain: 'layout style',
         ...style
       }}
     >
@@ -77,7 +82,7 @@ export default function AdsenseAd({ slot, format = 'auto', layout = '', layoutKe
         <ins
           suppressHydrationWarning
           className="adsbygoogle"
-          style={{ display: 'block', minWidth: '250px' }}
+          style={{ display: 'block', minWidth: '250px', width: '100%' }}
           data-ad-client="ca-pub-4474200951186936"
           data-ad-slot={slot}
           data-ad-format={format}
