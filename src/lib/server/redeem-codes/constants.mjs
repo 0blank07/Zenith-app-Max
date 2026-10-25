@@ -494,10 +494,10 @@ export const REDEEM_ROUTE_CONFIG = Object.freeze({
       'codigo fc mobile',
       'recompensas fc mobile'
     ],
-    title: 'Códigos FC Mobile: Códigos de Canje y Recompensas Gratis',
+    title: 'Códigos FC Mobile: Recompensas y Canje Gratis',
     metaDescription:
       'Consulta los últimos códigos de FC Mobile con recompensas gratis, jugadores garantizados, gemas y vouchers. Guía paso a paso y solución a problemas de canje.',
-    h1: 'Códigos FC Mobile: Todos los Códigos de Canje Activos',
+    h1: 'Códigos FC Mobile: Lista de Canje y Recompensas Activas',
     intro:
       '¿Buscas los últimos códigos de FC Mobile para conseguir recompensas gratis? Consulta nuestra lista actualizada de códigos de canje activos, recompensas gratuitas, tutorial paso a paso y respuestas a problemas habituales para jugadores de España y Latinoamérica.',
     globalCodeNote:
