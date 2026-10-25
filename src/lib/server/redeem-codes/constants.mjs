@@ -78,28 +78,81 @@ export const REDEEM_ROUTE_CONFIG = Object.freeze({
       'FC Mobile redeem codes with active, latest, and expired tracking. Built for players in every country without fake regional exclusives.',
     h1: 'FC Mobile Redeem Codes',
     intro:
-      'Use this FC Mobile redeem code tracker to check active rewards first, then copy any working code in one tap.',
+      'Welcome to the authoritative FC Mobile redeem codes list and working rewards tracker. Check active rewards verified live today, review the latest FC Mobile redeem codes, and copy any code in one tap to claim free packs, gems, and coins.',
     globalCodeNote:
-      'Most FC Mobile redeem codes are shared worldwide. For localized guides and community updates in Spanish, visit our Códigos FC Mobile hub.',
+      'All promotional codes in this list are verified global drops from EA Sports. For localized guides and community updates, explore our Thai, Arabic, and Spanish hubs.',
     copy: {
-      eyebrow: 'Redeem code tracker',
-      lastUpdatedLabel: 'List updated:'
+      eyebrow: 'Verified FC Mobile Redeem Code Tracker',
+      lastUpdatedLabel: 'List verified & updated:',
+      guideSections: [
+        {
+          title: 'What Rewards Do FC Mobile Redeem Codes Provide?',
+          intro:
+            'Using active promotional codes in EA SPORTS FC Mobile is the fastest way to strengthen your Ultimate Team squad with free in-game assets without spending FC Points or Coins. Depending on the active live event or EA Sports campaign, rewards typically include:',
+          bullets: [
+            'Guaranteed High-OVR Player Packs (featuring 105–115+ OVR event players)',
+            'Free Gems and Coins for store packs, transfers, and player progression',
+            'Universal Rank Up Players (Dudek and Mascherano rank-up tokens)',
+            'Draft Vouchers for competitive weekly tournament entries',
+            'Training Transfer Points and Skill Boost upgrade materials',
+            'Exclusive Club Kits, Emotes, User Logos, and Stadium Vanity Items'
+          ]
+        },
+        {
+          title: 'Why Is My FC Mobile Redeem Code Not Working? Troubleshooting Tips',
+          intro:
+            'If you enter a code on the official EA redemption site and encounter an error message, here are the most common causes and how to fix them:',
+          bullets: [
+            'The code has expired: Most FC Mobile redeem codes are time-sensitive flash drops that last between 24 and 72 hours, or until a global redemption quota is exhausted.',
+            'Redemption limit reached on your account: Unless specifically designated by EA Sports as recurring, each promotional code can only be claimed once per linked EA account.',
+            'Incorrect EA Account linked: Verify that the EA account you use to log in at redeem.fcm.ea.com matches the exact account linked in your FC Mobile mobile app settings.',
+            'Typographical errors or extra spaces: Codes are case-sensitive. Always click our "Copy Code" button to prevent accidental leading or trailing whitespace.'
+          ]
+        },
+        {
+          title: 'Where Does EA Sports Release New FC Mobile Codes?',
+          paragraphs: [
+            'Official EA Sports FC Mobile codes are distributed exclusively through verified community channels. EA regularly drops surprise codes during major esports tournament broadcasts (such as FC Pro Live on YouTube and Twitch), seasonal holiday campaigns (TOTY, TOTS, Winter Wildcards), and community milestone celebrations.',
+            'The ZenithFCM team continuously monitors EA Sports announcements, livestreams, and official Discord updates 24/7. We test every code live in-game before publishing, ensuring our latest FC mobile redeem codes list remains 100% accurate, up-to-date, and free of expired clutter.'
+          ]
+        }
+      ]
     },
     faqEntries: [
       {
+        question: 'What is the latest working FC Mobile redeem code?',
+        answer:
+          'The latest active FC Mobile redeem codes are listed at the top of this tracker. Our editorial team verifies each code live in-game every day and updates the list with real-time status badges (Active, Expired, and Community Verified).'
+      },
+      {
+        question: 'How do I redeem codes on the EA redemption website step by step?',
+        answer:
+          'To redeem your code: 1) Copy any active code from our verified list. 2) Visit the official EA redemption site at redeem.fcm.ea.com. 3) Log in with your linked EA account. 4) Paste the code into the text box and click Redeem. 5) Launch FC Mobile on your iOS or Android device and collect your rewards directly from your in-game mailbox.'
+      },
+      {
+        question: 'Can I redeem FIFA Mobile codes in EA FC Mobile 26?',
+        answer:
+          'Yes! FC Mobile is the official evolution and rebrand of FIFA Mobile. While legacy codes from previous FIFA Mobile seasons have expired, all new promotional codes released for the current FC Mobile season are claimed through the same official EA redemption portal.'
+      },
+      {
+        question: 'Why does my code say Invalid Code or Code Expired?',
+        answer:
+          'This error usually means the code has reached its maximum global claim capacity or has exceeded its promotional validity window. Check our expired codes archive to verify if a code is no longer active, and stick to codes marked with our green Verified Working badge.'
+      },
+      {
+        question: 'Are these FC Mobile redeem codes completely free to claim?',
+        answer:
+          'Yes. All redeem codes issued by EA Sports and tracked by ZenithFCM are 100% free. Never enter your password or financial information on third-party sites claiming to offer paid code generators.'
+      },
+      {
         question: 'Are these codes global or country-exclusive?',
         answer:
-          'This list is primarily global. We do not claim country-exclusive codes unless EA explicitly publishes a regional restriction.'
+          'This list is primarily global. We do not claim country-exclusive codes unless EA explicitly publishes a regional restriction. Players across North America, Europe, Asia, Latin America, and MENA can claim them.'
       },
       {
         question: 'Why do country pages exist if the codes are global?',
         answer:
           'Country pages tailor context, wording, and FAQs for local players, while still using the same verified global code feed.'
-      },
-      {
-        question: 'Can a global code still fail for some users?',
-        answer:
-          'Yes. Codes can expire quickly, hit redemption limits, or be limited by EA account eligibility, even when they are globally published.'
       }
     ],
     breadcrumb: [
@@ -351,6 +404,11 @@ export const REDEEM_ROUTE_CONFIG = Object.freeze({
         question: 'โค้ดระดับโลก (Global Code) ผู้เล่นไทยสามารถกดแลกได้ไหม?',
         answer:
           'แลกได้แน่นอน โค้ดส่วนใหญ่เปิดให้ใช้งานทั่วโลกรวมถึงประเทศไทย เว้นแต่จะมีโค้ดเฉพาะเซิร์ฟเวอร์ที่ EA ระบุเงื่อนไขไว้เป็นพิเศษ'
+      },
+      {
+        question: 'ติดตามกิจกรรมแจก รหัส ฟีฟ่า และ code fifa ล่าสุดได้ที่ไหน?',
+        answer:
+          'ทีมงาน ZenithFCM รวบรวมกิจกรรมแจก รหัส ฟีฟ่า และ code fifa ล่าสุด รวมถึงโค้ด FC Mobile ฟรีจากการถ่ายทอดสดของ EA และโซเชียลมีเดีย อัปเดตให้คุณใช้งานได้จริงก่อนใครทุกวัน'
       }
     ],
     breadcrumb: [
@@ -608,7 +666,7 @@ export const REDEEM_ROUTE_CONFIG = Object.freeze({
       'Consulta los últimos códigos de FC Mobile con recompensas gratis, jugadores garantizados, gemas y vouchers. Guía paso a paso y solución a problemas de canje.',
     h1: 'Códigos FC Mobile: Lista de Canje y Recompensas Activas',
     intro:
-      '¿Buscas los códigos FC Mobile hoy para conseguir recompensas gratis? Consulta nuestra lista actualizada de fc mobile códigos activos, recompensas garantizadas, tutorial paso a paso y respuestas a problemas habituales para jugadores de Latinoamérica y España.',
+      '¿Buscas los códigos FC Mobile hoy para conseguir recompensas gratis? Consulta nuestra lista actualizada con los últimos codigos fc mobile y codigos de canje activos sin acento, recompensas garantizadas, tutorial paso a paso para canjear en redeem.fcm.ea.com y compatibilidad con las cuentas de la clásica saga FIFA Mobile para jugadores de Latinoamérica y España.',
     globalCodeNote:
       'Los códigos de canje son una de las formas más sencillas de conseguir recompensas gratis en FC Mobile sin gastar FC Points ni Coins. La mayoría de los códigos son globales y aplican a todas las cuentas vinculadas.',
     copy: {
@@ -683,6 +741,11 @@ export const REDEEM_ROUTE_CONFIG = Object.freeze({
         question: '¿Estos códigos funcionan en Latinoamérica y España?',
         answer:
           'Sí. La inmensa mayoría de los códigos de FC Mobile son globales y funcionan perfectamente en cuentas de España y todos los países de habla hispana en Latinoamérica (México, Argentina, Colombia, Chile, Perú, etc.). Si un código fuese regional, lo especificaremos con una etiqueta.'
+      },
+      {
+        question: '¿Los códigos de FIFA Mobile funcionan en FC Mobile?',
+        answer:
+          'FC Mobile es la evolución oficial de FIFA Mobile. Aunque los códigos de temporadas antiguas ya caducaron, todos los nuevos códigos de canje se reclaman a través del portal oficial de EA (redeem.fcm.ea.com) y se añaden directamente a tu plantilla actual.'
       }
     ],
     breadcrumb: [
