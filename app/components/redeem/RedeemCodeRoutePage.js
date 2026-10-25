@@ -6,7 +6,7 @@ import {
 import {
   buildRedeemBreadcrumbSchema,
   buildRedeemCollectionSchema,
-  buildRedeemFaqSchema,
+  buildRedeemGameSchema,
   buildRedeemOrganizationSchema,
   serializeJsonLd
 } from '../../../src/lib/server/redeem-codes/schema.mjs';
@@ -62,7 +62,7 @@ async function renderRedeemRoutePage(routeConfig, searchParams = {}) {
   const schemas = [
     buildRedeemOrganizationSchema(),
     buildRedeemBreadcrumbSchema(routeConfig.breadcrumb, undefined, { inLanguage: schemaLanguage }),
-    buildRedeemFaqSchema(pageData?.faq || [], { inLanguage: schemaLanguage }),
+    buildRedeemGameSchema({ inLanguage: schemaLanguage }),
     pageData?.availability?.isConfigured === false
       ? null
       : buildRedeemCollectionSchema({

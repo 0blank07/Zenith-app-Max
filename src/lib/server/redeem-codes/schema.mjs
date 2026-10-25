@@ -64,6 +64,73 @@ export function buildRedeemBreadcrumbSchema(
   });
 }
 
+function toAbsoluteUrl(path, siteUrl = 'https://zenithfcm.com') {
+  const base = toText(siteUrl) || 'https://zenithfcm.com';
+  const validBase = base.startsWith('http://') || base.startsWith('https://') ? base : `https://${base}`;
+  const cleanPath = path.startsWith('/') ? path : `/${path}`;
+  try {
+    return new URL(cleanPath, validBase).toString();
+  } catch {
+    return `${validBase.replace(/\/+$/, '')}${cleanPath}`;
+  }
+}
+
+export function buildRedeemGameSchema(
+  { inLanguage = '' } = {},
+  siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://zenithfcm.com'
+) {
+  const resolvedSiteUrl = toText(siteUrl) || 'https://zenithfcm.com';
+
+  return cleanJsonLdValue({
+    '@context': 'https://schema.org',
+    '@type': 'VideoGame',
+    '@id': `${toAbsoluteUrl('/', resolvedSiteUrl)}#game`,
+    name: 'EA SPORTS FC Mobile',
+    alternateName: [
+      'FC Mobile',
+      'FIFA Mobile',
+      'EA Sports FC Mobile',
+      'EA FC Mobile',
+      'FC Mobile 26',
+      'EA SPORTS FC Mobile Football'
+    ],
+    description:
+      'EA SPORTS FC Mobile is an association football simulation mobile video game developed by EA Mobile and EA Canada and published by EA Sports for Android and iOS.',
+    url: 'https://www.ea.com/games/ea-sports-fc/fc-mobile',
+    applicationCategory: 'GameApplication',
+    operatingSystem: 'Android, iOS',
+    gamePlatform: ['Android', 'iOS'],
+    genre: ['Sports Game', 'Football Simulation'],
+    playMode: ['MultiPlayer', 'SinglePlayer'],
+    inLanguage: toText(inLanguage) || undefined,
+    author: {
+      '@type': 'Organization',
+      name: 'EA Mobile & EA Canada'
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Electronic Arts',
+      alternateName: 'EA Sports',
+      url: 'https://www.ea.com'
+    },
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+      availability: 'https://schema.org/InStock'
+    },
+    sameAs: [
+      'https://en.wikipedia.org/wiki/EA_Sports_FC_Mobile',
+      'https://www.wikidata.org/wiki/Q27958122',
+      'https://play.google.com/store/apps/details?id=com.ea.gp.fifamobile',
+      'https://apps.apple.com/app/ea-sports-fc-mobile-soccer/id1094930513',
+      'https://www.ea.com/games/ea-sports-fc/fc-mobile'
+    ]
+  });
+}
+
+export const buildRedeemSoftwareSchema = buildRedeemGameSchema;
+
 export function buildRedeemFaqSchema(faqItems = [], { inLanguage = '' } = {}) {
   const entities = (Array.isArray(faqItems) ? faqItems : [])
     .map((entry) => {
@@ -90,19 +157,12 @@ export function buildRedeemFaqSchema(faqItems = [], { inLanguage = '' } = {}) {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
     inLanguage: toText(inLanguage),
+    about: {
+      '@type': 'VideoGame',
+      name: 'EA SPORTS FC Mobile'
+    },
     mainEntity: entities
   });
-}
-
-function toAbsoluteUrl(path, siteUrl = 'https://zenithfcm.com') {
-  const base = toText(siteUrl) || 'https://zenithfcm.com';
-  const validBase = base.startsWith('http://') || base.startsWith('https://') ? base : `https://${base}`;
-  const cleanPath = path.startsWith('/') ? path : `/${path}`;
-  try {
-    return new URL(cleanPath, validBase).toString();
-  } catch {
-    return `${validBase.replace(/\/+$/, '')}${cleanPath}`;
-  }
 }
 
 export function buildRedeemOrganizationSchema(
@@ -166,6 +226,28 @@ export function buildRedeemCollectionSchema(
     description: toText(description),
     dateModified,
     url: toAbsoluteUrl(normalizedPath, resolvedSiteUrl),
+    about: {
+      '@type': 'VideoGame',
+      name: 'EA SPORTS FC Mobile',
+      alternateName: [
+        'FC Mobile',
+        'FIFA Mobile',
+        'EA Sports FC Mobile',
+        'EA FC Mobile'
+      ],
+      applicationCategory: 'GameApplication',
+      operatingSystem: 'Android, iOS',
+      publisher: {
+        '@type': 'Organization',
+        name: 'Electronic Arts',
+        url: 'https://www.ea.com'
+      },
+      sameAs: [
+        'https://en.wikipedia.org/wiki/EA_Sports_FC_Mobile',
+        'https://play.google.com/store/apps/details?id=com.ea.gp.fifamobile',
+        'https://apps.apple.com/app/ea-sports-fc-mobile-soccer/id1094930513'
+      ]
+    },
     author: {
       '@type': 'Person',
       name: 'ASTA',
@@ -202,4 +284,3 @@ export function buildRedeemCollectionSchema(
     }
   });
 }
-
