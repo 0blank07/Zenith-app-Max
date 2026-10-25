@@ -91,11 +91,23 @@ export function getDynamicTitleAndH1(routeConfig) {
   return { title, h1 };
 }
 
+function toAbsoluteImageUrl(imagePath, siteUrl) {
+  const path = toText(imagePath);
+  if (!path) return '';
+  if (/^https?:\/\//i.test(path)) return path;
+  return new URL(path.startsWith('/') ? path : `/${path}`, siteUrl).toString();
+}
+
 export function buildRedeemRouteMetadata(routeConfig) {
   const canonicalPath = routeConfig?.path || REDEEM_ROUTE_CONFIG[REDEEM_ROUTE_KEY.GLOBAL].path;
   const { title } = getDynamicTitleAndH1(routeConfig);
   const description = toText(routeConfig?.metaDescription);
   const locale = toText(routeConfig?.locale, 'en-US');
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://zenithfcm.com';
+  const ogImageUrl = toAbsoluteImageUrl(
+    routeConfig?.ogImage || '/assets/images/1024_banner_2_upload.webp',
+    siteUrl
+  );
 
   return {
     title,
@@ -115,12 +127,21 @@ export function buildRedeemRouteMetadata(routeConfig) {
       type: 'website',
       url: canonicalPath,
       locale: locale.replace('-', '_'),
-      siteName: 'Zenith'
+      siteName: 'Zenith',
+      images: [
+        {
+          url: ogImageUrl,
+          width: 1024,
+          height: 512,
+          alt: title
+        }
+      ]
     },
     twitter: {
       card: 'summary_large_image',
       title,
-      description
+      description,
+      images: [ogImageUrl]
     }
   };
 }

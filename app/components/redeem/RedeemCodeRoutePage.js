@@ -74,18 +74,17 @@ async function renderRedeemRoutePage(routeConfig, searchParams = {}) {
         })
   ].filter(Boolean);
 
-  const { getPageH1Override, PageSeoH1, getPageCustomJsonLd, PageSeoCustomJsonLd } = await import('../../../src/lib/server/page-seo-metadata.mjs');
+  const { getPageH1Override, getPageCustomJsonLd, PageSeoCustomJsonLd } = await import('../../../src/lib/server/page-seo-metadata.mjs');
   const h1Heading = await getPageH1Override(routeConfig.path) || dynamicH1;
   const customJsonLd = await getPageCustomJsonLd(routeConfig.path);
 
   const enhancedPageData = pageData ? {
     ...pageData,
-    route: { ...pageData.route, h1: dynamicH1 }
+    route: { ...pageData.route, h1: h1Heading }
   } : pageData;
 
   return (
     <SiteChrome activeView="redeem">
-      <PageSeoH1 heading={h1Heading} />
       <PageSeoCustomJsonLd schema={customJsonLd} />
       <main className="main-content redeem-main-content">
         {schemas.map((schema, index) => (

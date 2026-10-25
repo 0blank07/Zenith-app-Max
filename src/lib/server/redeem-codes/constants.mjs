@@ -481,8 +481,8 @@ export const REDEEM_ROUTE_CONFIG = Object.freeze({
     includeGlobalScope: true,
     sharedGlobalCodes: true,
     todayOnly: false,
-    countryLabel: 'Spain',
-    navLabel: 'Spain',
+    countryLabel: 'Latinoamérica y España',
+    navLabel: 'Español',
     locale: 'es-ES',
     hreflang: 'es',
     primaryKeyword: 'Códigos FC Mobile',
@@ -499,11 +499,11 @@ export const REDEEM_ROUTE_CONFIG = Object.freeze({
       'Consulta los últimos códigos de FC Mobile con recompensas gratis, jugadores garantizados, gemas y vouchers. Guía paso a paso y solución a problemas de canje.',
     h1: 'Códigos FC Mobile: Lista de Canje y Recompensas Activas',
     intro:
-      '¿Buscas los últimos códigos de FC Mobile para conseguir recompensas gratis? Consulta nuestra lista actualizada de códigos de canje activos, recompensas gratuitas, tutorial paso a paso y respuestas a problemas habituales para jugadores de España y Latinoamérica.',
+      '¿Buscas los últimos códigos de FC Mobile para conseguir recompensas gratis? Consulta nuestra lista actualizada de códigos de canje activos, recompensas gratuitas, tutorial paso a paso y respuestas a problemas habituales para jugadores de Latinoamérica y España.',
     globalCodeNote:
       'Los códigos de canje son una de las formas más sencillas de conseguir recompensas gratis en FC Mobile sin gastar FC Points ni Coins. La mayoría de los códigos son globales y aplican a todas las cuentas vinculadas.',
     copy: {
-      eyebrow: 'Guía de Códigos para España y Latinoamérica',
+      eyebrow: 'Guía de Códigos para Latinoamérica y España',
       lastUpdatedLabel: 'Última actualización verificada:',
       guideSections: [
         {
@@ -534,7 +534,7 @@ export const REDEEM_ROUTE_CONFIG = Object.freeze({
           title: '¿Dónde encontrar más códigos oficiales de FC Mobile?',
           paragraphs: [
             'Los nuevos códigos de canje de FC Mobile suelen aparecer durante grandes eventos de temporada (como TOTY, TOTS, eventos de aniversario), transmisiones oficiales en directo en Twitch y YouTube, celebraciones de la comunidad y colaboraciones especiales de EA Sports.',
-            'En ZenithFCM monitorizamos todas las fuentes oficiales de EA para actualizar esta página al instante. Añade esta página a tus marcadores para no perderte ningún código antes de que expire.'
+            'En ZenithFCM monitoreamos todas las fuentes oficiales de EA para actualizar esta página al instante. Añade esta página a tus marcadores para no perderte ningún código antes de que expire.'
           ]
         }
       ]
@@ -571,15 +571,15 @@ export const REDEEM_ROUTE_CONFIG = Object.freeze({
           'EA Sports publica códigos sorpresa durante directos oficiales de Twitch/YouTube, eventos de temporada del juego, campañas en redes sociales y festividades especiales. En ZenithFCM recopilamos y verificamos todos los códigos nuevos al instante.'
       },
       {
-        question: '¿Estos códigos funcionan en España y Latinoamérica?',
+        question: '¿Estos códigos funcionan en Latinoamérica y España?',
         answer:
           'Sí. La inmensa mayoría de los códigos de FC Mobile son globales y funcionan perfectamente en cuentas de España y todos los países de habla hispana en Latinoamérica (México, Argentina, Colombia, Chile, Perú, etc.). Si un código fuese regional, lo especificaremos con una etiqueta.'
       }
     ],
     breadcrumb: [
-      { name: 'Home', path: '/' },
+      { name: 'Inicio', path: '/' },
       { name: 'FC Mobile Redeem Codes', path: '/fc-mobile-redeem-codes' },
-      { name: 'Spain', path: '/es/codigos-fc-mobile' }
+      { name: 'Códigos FC Mobile', path: '/es/codigos-fc-mobile' }
     ]
   },
   [REDEEM_ROUTE_KEY.TURKEY]: {

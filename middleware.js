@@ -155,7 +155,7 @@ export async function middleware(request) {
             status: 304,
             headers: {
               'Last-Modified': lastModifiedDate.toUTCString(),
-              'Cache-Control': 'public, max-age=60, stale-while-revalidate=300'
+              'Cache-Control': 'public, max-age=60, s-maxage=300, stale-while-revalidate=600'
             }
           });
         }
@@ -163,6 +163,7 @@ export async function middleware(request) {
 
       const response = NextResponse.next();
       response.headers.set('Last-Modified', lastModifiedDate.toUTCString());
+      response.headers.set('Cache-Control', 'public, max-age=60, s-maxage=300, stale-while-revalidate=600');
       return response;
     }
   }
