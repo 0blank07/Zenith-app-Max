@@ -1,3 +1,4 @@
+import { headers } from 'next/headers';
 import './globals.css';
 import Script from 'next/script';
 import { Inter } from 'next/font/google';
@@ -44,8 +45,11 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  const headersList = headers();
+  const lang = headersList.get('x-html-lang') || 'en';
+  const dir = headersList.get('x-html-dir') || undefined;
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang={lang} dir={dir} className={inter.variable}>
       <head>
         <script
           dangerouslySetInnerHTML={{

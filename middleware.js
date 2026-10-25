@@ -12,6 +12,41 @@ import {
  * 2. Legacy tool query parameter redirects (301)
  * 3. Cleanup of ?tool= param from clean SEO routes
  */
+
+function resolvePathLocale(cleanPath) {
+  if (cleanPath.startsWith('/th') || cleanPath === '/th/fc-mobile-code') {
+    return { lang: 'th', dir: 'ltr' };
+  }
+  if (cleanPath.startsWith('/ae') || cleanPath === '/ae/kod-fifa') {
+    return { lang: 'ar', dir: 'rtl' };
+  }
+  if (cleanPath.startsWith('/es') || cleanPath === '/es/codigos-fc-mobile') {
+    return { lang: 'es', dir: 'ltr' };
+  }
+  if (cleanPath.startsWith('/id')) {
+    return { lang: 'id', dir: 'ltr' };
+  }
+  if (cleanPath.startsWith('/vn')) {
+    return { lang: 'vi', dir: 'ltr' };
+  }
+  if (cleanPath.startsWith('/pt')) {
+    return { lang: 'pt', dir: 'ltr' };
+  }
+  if (cleanPath.startsWith('/de')) {
+    return { lang: 'de', dir: 'ltr' };
+  }
+  if (cleanPath.startsWith('/my')) {
+    return { lang: 'ms', dir: 'ltr' };
+  }
+  if (cleanPath.startsWith('/tr')) {
+    return { lang: 'tr', dir: 'ltr' };
+  }
+  if (cleanPath.startsWith('/ru')) {
+    return { lang: 'ru', dir: 'ltr' };
+  }
+  return { lang: 'en', dir: 'ltr' };
+}
+
 export async function middleware(request) {
   const { pathname, searchParams } = request.nextUrl;
 
@@ -142,8 +177,17 @@ export async function middleware(request) {
     }
   }
 
-  // --- 4. Dynamic Last-Modified Header & 304 for Redeem Code Routes ---
+  // --- 4. Dynamic Last-Modified Header & SSR Language Tags ---
   const cleanPath = pathname.length > 1 && pathname.endsWith('/') ? pathname.slice(0, -1) : pathname;
+  
+  // Resolve SSR language & directionality for Next.js RootLayout (<html lang dir>)
+  const { lang: htmlLang, dir: htmlDir } = resolvePathLocale(cleanPath);
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set('x-html-lang', htmlLang);
+  if (htmlDir === 'rtl') {
+    requestHeaders.set('x-html-dir', 'rtl');
+  }
+
   if (request.method === 'GET' && REDEEM_CODE_PATHS.has(cleanPath)) {
     const lastModifiedDate = await getRedeemLastModifiedDate(cleanPath, request);
     if (lastModifiedDate) {
@@ -161,14 +205,22 @@ export async function middleware(request) {
         }
       }
 
-      const response = NextResponse.next();
+      const response = NextResponse.next({
+        request: {
+          headers: requestHeaders
+        }
+      });
       response.headers.set('Last-Modified', lastModifiedDate.toUTCString());
       response.headers.set('Cache-Control', 'public, max-age=60, s-maxage=300, stale-while-revalidate=600');
       return response;
     }
   }
 
-  return NextResponse.next();
+  return NextResponse.next({
+    request: {
+      headers: requestHeaders
+    }
+  });
 }
 
 const REDEEM_CODE_PATHS = new Set([
