@@ -44,7 +44,30 @@ const DEFAULT_COPY = Object.freeze({
   welcomeBackTitle: 'Code Copied! Level Up Your Squad',
   welcomeBackCta: 'Explore Top 100 Players',
   welcomeBackBrowseAll: 'Browse All Players',
-  welcomeBackDismiss: 'Continue Browsing Codes'
+  welcomeBackDismiss: 'Continue Browsing Codes',
+  authorName: 'ASTA',
+  authorRole: 'Lead FC Mobile Analyst',
+  writtenByLabel: 'Written by',
+  reviewedByLabel: 'Reviewed by',
+  editorialTeamLabel: 'ZenithFCM Editorial Team',
+  editorialPolicyLabel: 'Editorial Standards & Verification Policy',
+  methodologyBadge: 'Hands-On Verified',
+  methodologyTitle: 'How We Test & Verify FC Mobile Codes',
+  methodologyIntro: 'Every promo code published on Zenith undergoes real-device in-game testing before being marked active:',
+  methodologyPoints: [
+    {
+      title: 'Tested on Real Game Accounts',
+      desc: 'Our analysts test each code directly in EA SPORTS FC Mobile on iOS and Android devices through the official EA redemption portal (redeem.fcm.ea.com).'
+    },
+    {
+      title: '24/7 EA Stream & Community Tracking',
+      desc: 'We monitor official EA Sports YouTube & Twitch broadcasts (such as FC Pro Live), Discord announcements, and community drops in real time.'
+    },
+    {
+      title: 'Community-Validated Expiry & Fast Archival',
+      desc: 'When player votes or quota limits indicate a code has expired, our editorial desk re-checks and moves it to the archive immediately. Zero fake generator clutter.'
+    }
+  ]
 });
 
 function formatDate(value, locale = 'en-US') {
@@ -156,6 +179,16 @@ export default function RedeemCodeHubPage({ pageData }) {
             {route.globalCodeNote}
           </p>
         ) : null}
+        <div className={styles.authorByline}>
+          <div className={styles.authorAvatar} aria-hidden="true">
+            {copy.authorName ? copy.authorName.slice(0, 2).toUpperCase() : 'AS'}
+          </div>
+          <div className={styles.authorInfo}>
+            <span className={styles.bylinePrefix}>{copy.writtenByLabel}</span>
+            <strong className={styles.authorName}>{copy.authorName}</strong>
+            <span className={styles.authorRole}>{copy.authorRole}</span>
+          </div>
+        </div>
         <div className={styles.updatedAt}>
           {copy.lastUpdatedLabel} {formatDate(updatedAt, locale)}
         </div>
@@ -237,6 +270,7 @@ export default function RedeemCodeHubPage({ pageData }) {
                     <span>{copy.verifiedByTeam}</span>
                   </Link>
                 </div>
+
                 {activeCodes.length ? (
                   <div className={styles.cards}>{activeCodes.map((entry) => renderCodeCard(entry, locale, copy))}</div>
                 ) : (
@@ -278,6 +312,47 @@ export default function RedeemCodeHubPage({ pageData }) {
                 </a>
               </div>
             </section>
+          )}
+
+          {Array.isArray(copy.methodologyPoints) && copy.methodologyPoints.length > 0 && (
+            <div className={styles.methodologyCard}>
+              <div className={styles.methodologyHeader}>
+                <div className={styles.methodologyTitleGroup}>
+                  <span className={styles.methodologyBadge}>
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    {copy.methodologyBadge}
+                  </span>
+                  <h3 className={styles.methodologyTitle}>{copy.methodologyTitle}</h3>
+                </div>
+                <Link href="/about-us" className={styles.methodologyPolicyLink}>
+                  {copy.editorialPolicyLabel} →
+                </Link>
+              </div>
+              <p className={styles.methodologyIntro}>{copy.methodologyIntro}</p>
+              <div className={styles.methodologyGrid}>
+                {copy.methodologyPoints.map((point, pIdx) => (
+                  <div key={pIdx} className={styles.methodologyPoint}>
+                    <div className={styles.methodologyPointNumber}>{pIdx + 1}</div>
+                    <div className={styles.methodologyPointContent}>
+                      <h4 className={styles.methodologyPointTitle}>{point.title}</h4>
+                      <p className={styles.methodologyPointDesc}>{point.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           )}
 
           {section.showExpired && (

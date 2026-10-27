@@ -42,7 +42,30 @@ export const REDEEM_UI_I18N = {
     welcomeBackTitle: 'Code Copied! Level Up Your Squad',
     welcomeBackCta: 'Explore Top 10 Players',
     welcomeBackBrowseAll: 'Redeem at EA Site',
-    welcomeBackDismiss: 'Continue Browsing Codes'
+    welcomeBackDismiss: 'Continue Browsing Codes',
+    authorName: 'ASTA',
+    authorRole: 'Lead FC Mobile Analyst',
+    writtenByLabel: 'Written by',
+    reviewedByLabel: 'Fact-Checked & Reviewed by',
+    editorialTeamLabel: 'ZenithFCM Editorial Team',
+    editorialPolicyLabel: 'Editorial Standards & Verification Policy',
+    methodologyBadge: 'Hands-On Verified',
+    methodologyTitle: 'How We Test & Verify FC Mobile Codes',
+    methodologyIntro: 'Every promo code published on Zenith undergoes real-device in-game testing before being marked active:',
+    methodologyPoints: [
+      {
+        title: 'Tested on Real Game Accounts',
+        desc: 'Our analysts test each code directly in EA SPORTS FC Mobile on iOS and Android devices through the official EA redemption portal (redeem.fcm.ea.com).'
+      },
+      {
+        title: '24/7 EA Stream & Community Tracking',
+        desc: 'We monitor official EA Sports YouTube & Twitch broadcasts (such as FC Pro Live), Discord announcements, and community drops in real time.'
+      },
+      {
+        title: 'Community-Validated Expiry & Fast Archival',
+        desc: 'When player votes or quota limits indicate a code has expired, our editorial desk re-checks and moves it to the archive immediately. Zero fake generator clutter.'
+      }
+    ]
   },
   es: {
     howToTitle: 'Cómo canjear códigos de FC Mobile',
@@ -88,7 +111,30 @@ export const REDEEM_UI_I18N = {
     welcomeBackTitle: '¡Código copiado! Mejora tu plantilla',
     welcomeBackCta: 'Explorar los 10 mejores jugadores',
     welcomeBackBrowseAll: 'Canjear en el sitio de EA',
-    welcomeBackDismiss: 'Continuar viendo códigos'
+    welcomeBackDismiss: 'Continuar viendo códigos',
+    authorName: 'ASTA',
+    authorRole: 'Analista Principal de FC Mobile',
+    writtenByLabel: 'Escrito por',
+    reviewedByLabel: 'Verificado y revisado por',
+    editorialTeamLabel: 'Equipo Editorial de ZenithFCM',
+    editorialPolicyLabel: 'Estándares Editoriales y Política de Verificación',
+    methodologyBadge: 'Probado en el Juego',
+    methodologyTitle: 'Cómo probamos y verificamos los códigos de FC Mobile',
+    methodologyIntro: 'Cada código promocional publicado en Zenith se somete a una rigurosa prueba manual dentro del juego antes de marcarse como activo:',
+    methodologyPoints: [
+      {
+        title: 'Probado en cuentas reales del juego',
+        desc: 'Nuestros analistas canjean cada código directamente en EA SPORTS FC Mobile en iOS y Android a través del portal oficial de EA (redeem.fcm.ea.com).'
+      },
+      {
+        title: 'Monitoreo de directos de EA en tiempo real',
+        desc: 'Seguimos las transmisiones oficiales de EA Sports en YouTube y Twitch (como FC Pro Live), anuncios de Discord y eventos de la comunidad las 24 horas.'
+      },
+      {
+        title: 'Expiración validada por la comunidad',
+        desc: 'Si los votos de los jugadores o el límite de cupos indican que un código caducó, nuestro equipo lo revisa y archiva al instante. Cero estafas ni generadores falsos.'
+      }
+    ]
   },
   id: {
     selectRegion: 'Pilih Wilayah',
@@ -212,7 +258,30 @@ export const REDEEM_UI_I18N = {
     welcomeBackTitle: 'คัดลอกโค้ดแล้ว! อัปเกรดทีม FC Mobile',
     welcomeBackCta: 'สำรวจผู้เล่น 10 อันดับแรก',
     welcomeBackBrowseAll: 'ไปที่หน้าแลกโค้ด EA',
-    welcomeBackDismiss: 'ดูโค้ด FC Mobile ต่อไป'
+    welcomeBackDismiss: 'ดูโค้ด FC Mobile ต่อไป',
+    authorName: 'ASTA',
+    authorRole: 'หัวหน้านักวิเคราะห์ FC Mobile',
+    writtenByLabel: 'เขียนโดย',
+    reviewedByLabel: 'ตรวจสอบข้อเท็จจริงโดย',
+    editorialTeamLabel: 'ทีมบรรณาธิการ ZenithFCM',
+    editorialPolicyLabel: 'มาตรฐานกองบรรณาธิการและนโยบายการตรวจสอบ',
+    methodologyBadge: 'ทดสอบจริงในเกม',
+    methodologyTitle: 'วิธีที่เราทดสอบและตรวจสอบโค้ด FC Mobile',
+    methodologyIntro: 'ทุกโค้ดโปรโมชันที่แสดงบน Zenith ผ่านการทดสอบจริงในเกมบนมือถือก่อนจะแสดงสถานะเป็นโค้ดที่ใช้งานได้:',
+    methodologyPoints: [
+      {
+        title: 'ทดสอบบนบัญชีเกมจริง',
+        desc: 'ทีมนักวิเคราะห์ของเราทดสอบแลกโค้ดในเกม EA SPORTS FC Mobile ทั้งบนระบบ iOS และ Android ผ่านเว็บทางการของ EA (redeem.fcm.ea.com)'
+      },
+      {
+        title: 'ติดตามการถ่ายทอดสดของ EA แบบเรียลไทม์',
+        desc: 'เราติดตามการถ่ายทอดสดของ EA Sports ทาง YouTube และ Twitch (เช่น FC Pro Live) รวมถึงประกาศใน Discord ตลอด 24 ชม. เพื่ออัปเดตโค้ดใหม่ทันทีที่ปล่อย'
+      },
+      {
+        title: 'อัปเดตโค้ดหมดอายุด้วยการโหวตจากผู้เล่น',
+        desc: 'เมื่อผู้เล่นโหวตหรือโค้ดเต็มโควตา ทีมงานจะตรวจสอบซ้ำและย้ายไปยังหมวดหมดอายุทันที ไม่แจกโค้ดหลอกหรือโปรแกรมโกงใดๆ'
+      }
+    ]
   },
   ar: {
     howToTitle: 'طريقة استرداد اكواد فيفا موبايل و FC Mobile',
@@ -258,7 +327,30 @@ export const REDEEM_UI_I18N = {
     welcomeBackTitle: 'تم نسخ الكود! طور تشكيلتك مجاناً',
     welcomeBackCta: 'استكشف أفضل 10 لاعبين',
     welcomeBackBrowseAll: 'استرداد في موقع EA',
-    welcomeBackDismiss: 'متابعة تصفح الأكواد'
+    welcomeBackDismiss: 'متابعة تصفح الأكواد',
+    authorName: 'ASTA',
+    authorRole: 'كبير محللي FC Mobile',
+    writtenByLabel: 'بقلم',
+    reviewedByLabel: 'تدقيق ومراجعة بواسطة',
+    editorialTeamLabel: 'فريق تحرير ZenithFCM',
+    editorialPolicyLabel: 'معايير التحرير والتحقق',
+    methodologyBadge: 'مجرب داخل اللعبة',
+    methodologyTitle: 'كيف نختبر ونتحقق من اكواد فيفا موبايل الشغالة',
+    methodologyIntro: 'يخضع كل كود ترويجي منشور على Zenith لاختبار حقيقي داخل اللعبة على الهواتف قبل اعتماده ككود شغال:',
+    methodologyPoints: [
+      {
+        title: 'اختبار مباشر على حسابات حقيقية',
+        desc: 'يقوم محللونا بتجربة كل كود في لعبة EA SPORTS FC Mobile على نظامي iOS و Android عبر بوابة الاسترداد الرسمية لشركة EA (redeem.fcm.ea.com).'
+      },
+      {
+        title: 'مراقبة بثوث EA والفعاليات الرسمية',
+        desc: 'نتابع بثوث EA Sports على YouTube و Twitch (مثل بطولات FC Pro) وإعلانات ديسكورد الرسمية على مدار الساعة لتوفير الأكواد فور صدورها.'
+      },
+      {
+        title: 'أرشفة الأكواد المنتهية بتصويت المجتمع',
+        desc: 'عند انتهاء صلاحية الكود أو وصوله للحد الأقصى للمطالبات، يتحقق فريقنا منه فوراً وينقله إلى الأرشيف. لا نستخدم مولدات أكواد وهمية إطلاقاً.'
+      }
+    ]
   },
   pt: {
     selectRegion: 'Selecione a Região',
@@ -367,5 +459,7 @@ export const REDEEM_UI_I18N = {
 };
 
 export function getRedeemUiTranslations(hreflang) {
-  return REDEEM_UI_I18N[hreflang] || REDEEM_UI_I18N['en'];
+  const base = REDEEM_UI_I18N['en'] || {};
+  const current = REDEEM_UI_I18N[hreflang] || {};
+  return { ...base, ...current };
 }

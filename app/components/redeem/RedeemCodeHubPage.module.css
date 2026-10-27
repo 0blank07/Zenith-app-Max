@@ -1118,3 +1118,250 @@
     font-size: 1.1rem;
   }
 }
+
+/* E-E-A-T Author & Reviewer Byline */
+.authorByline {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+  padding: 6px 14px;
+  background: rgba(16, 31, 38, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 100px;
+  width: fit-content;
+}
+
+.bylineRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+  padding: 10px 16px;
+  background: rgba(16, 31, 38, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+}
+
+.authorItem,
+.reviewerItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.authorAvatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #00c2a8 0%, #008f7a 100%);
+  color: #070d10;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+}
+
+.authorInfo,
+.reviewerInfo {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.bylinePrefix {
+  color: #6a7c82;
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+.authorName {
+  color: #f8fafc;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.authorRole {
+  display: inline-block;
+  padding: 1px 7px;
+  border-radius: 100px;
+  background: rgba(0, 194, 168, 0.1);
+  border: 1px solid rgba(0, 194, 168, 0.25);
+  color: #00c2a8;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.reviewerIcon {
+  color: #00c2a8;
+  flex-shrink: 0;
+}
+
+.reviewerLink {
+  color: #f8fafc;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.reviewerLink:hover {
+  color: #00c2a8;
+  text-decoration: underline;
+}
+
+.bylineDivider {
+  color: rgba(255, 255, 255, 0.15);
+  font-size: 0.8rem;
+  user-select: none;
+}
+
+/* Testing Methodology Card */
+.methodologyCard {
+  margin: 16px 0 24px;
+  padding: 20px 22px;
+  background: linear-gradient(145deg, rgba(16, 31, 38, 0.6) 0%, rgba(7, 13, 16, 0.85) 100%);
+  border: 1px solid rgba(0, 194, 168, 0.22);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.methodologyHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.methodologyTitleGroup {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.methodologyBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  background: rgba(34, 197, 94, 0.12);
+  border: 1px solid rgba(34, 197, 94, 0.35);
+  color: #4ade80;
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.methodologyTitle {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.methodologyPolicyLink {
+  color: #00c2a8;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.methodologyPolicyLink:hover {
+  color: #4ade80;
+  text-decoration: underline;
+}
+
+.methodologyIntro {
+  margin: 0 0 14px;
+  color: #94a3a8;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.methodologyGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.methodologyPoint {
+  display: flex;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 12px 14px;
+  transition: all 0.2s ease;
+}
+
+.methodologyPoint:hover {
+  background: rgba(0, 194, 168, 0.03);
+  border-color: rgba(0, 194, 168, 0.25);
+  transform: translateY(-1px);
+}
+
+.methodologyPointNumber {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #00c2a8 0%, #008f7a 100%);
+  color: #070d10;
+  font-weight: 900;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.methodologyPointContent {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.methodologyPointTitle {
+  margin: 0;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #f8fafc;
+}
+
+.methodologyPointDesc {
+  margin: 0;
+  font-size: 0.76rem;
+  color: #94a3a8;
+  line-height: 1.45;
+}
+
+@media (max-width: 900px) {
+  .methodologyGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .bylineDivider {
+    display: none;
+  }
+  .bylineRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .methodologyCard {
+    padding: 16px 14px;
+  }
+}
