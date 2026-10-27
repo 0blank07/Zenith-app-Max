@@ -40,12 +40,6 @@ export function getStaticEntries(lastModified, redeemLastModifiedMap = {}) {
       priority: 0.95
     },
     {
-      url: toAbsoluteUrl('/blogs'),
-      lastModified,
-      changeFrequency: 'daily',
-      priority: 0.9
-    },
-    {
       url: toAbsoluteUrl('/fc-mobile-redeem-codes'),
       lastModified: redeemLastModifiedMap['/fc-mobile-redeem-codes'] || lastModified,
       changeFrequency: 'hourly',
@@ -101,12 +95,6 @@ export function getStaticEntries(lastModified, redeemLastModifiedMap = {}) {
     },
     {
       url: toAbsoluteUrl('/tools'),
-      lastModified,
-      changeFrequency: 'monthly',
-      priority: 0.8
-    },
-    {
-      url: toAbsoluteUrl('/shard-calculator'),
       lastModified,
       changeFrequency: 'monthly',
       priority: 0.8

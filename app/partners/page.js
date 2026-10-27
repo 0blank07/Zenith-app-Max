@@ -10,6 +10,9 @@ export async function generateMetadata({ searchParams = {} }) {
   return {
     title: `Official Partners${search} | ZenithFCM`,
     description: 'Creators, streamers, communities, and ecosystem partners supporting ZenithFCM.',
+    alternates: {
+      canonical: '/partners'
+    },
     openGraph: {
       title: 'Official ZenithFCM Partners',
       description: 'Meet the creators and communities that power the ZenithFCM ecosystem.',

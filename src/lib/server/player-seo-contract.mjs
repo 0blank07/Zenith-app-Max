@@ -1017,20 +1017,75 @@ export function buildPlayerSeoMetadata(playerRecord, options = {}) {
     },
     jsonLd: {
       '@context': 'https://schema.org',
-      '@type': 'Thing',
-      name: jsonLdName,
-      description: jsonLdDescription,
-      url: canonical,
-      image: player.image || undefined,
-      additionalProperty: [
-        { '@type': 'PropertyValue', name: 'OVR', value: String(ovrValue) },
-        { '@type': 'PropertyValue', name: 'Position', value: positionValue },
-        { '@type': 'PropertyValue', name: 'Club', value: clubValue },
-        { '@type': 'PropertyValue', name: 'League', value: leagueValue },
-        { '@type': 'PropertyValue', name: 'Nation', value: nationValue },
-        { '@type': 'PropertyValue', name: 'Event', value: eventValue },
-        { '@type': 'PropertyValue', name: 'Skill Moves', value: String(skillMovesValue) },
-        { '@type': 'PropertyValue', name: 'Weak Foot', value: String(weakFootValue) }
+      '@graph': [
+        {
+          '@type': 'ItemPage',
+          '@id': canonical,
+          url: canonical,
+          name: title,
+          description,
+          isPartOf: {
+            '@type': 'WebSite',
+            '@id': `${siteUrl}/#website`,
+            name: siteName,
+            url: siteUrl
+          },
+          breadcrumb: {
+            '@id': `${canonical}#breadcrumb`
+          },
+          mainEntity: {
+            '@id': `${canonical}#athlete`
+          }
+        },
+        {
+          '@type': 'BreadcrumbList',
+          '@id': `${canonical}#breadcrumb`,
+          itemListElement: [
+            {
+              '@type': 'ListItem',
+              position: 1,
+              name: 'Home',
+              item: siteUrl
+            },
+            {
+              '@type': 'ListItem',
+              position: 2,
+              name: 'Players',
+              item: `${siteUrl}/players`
+            },
+            {
+              '@type': 'ListItem',
+              position: 3,
+              name: label,
+              item: canonical
+            }
+          ]
+        },
+        {
+          '@type': 'Person',
+          '@id': `${canonical}#athlete`,
+          name: playerName,
+          description: jsonLdDescription,
+          url: canonical,
+          ...(player.image ? { image: player.image } : {}),
+          jobTitle: 'Professional Football Player',
+          ...(nationValue && nationValue !== 'Unknown Nation'
+            ? { nationality: { '@type': 'Country', name: nationValue } }
+            : {}),
+          ...(clubValue && clubValue !== 'Unknown Club'
+            ? { affiliation: { '@type': 'SportsTeam', name: clubValue } }
+            : {}),
+          additionalProperty: [
+            { '@type': 'PropertyValue', name: 'OVR', value: String(ovrValue) },
+            { '@type': 'PropertyValue', name: 'Position', value: positionValue },
+            { '@type': 'PropertyValue', name: 'Club', value: clubValue },
+            { '@type': 'PropertyValue', name: 'League', value: leagueValue },
+            { '@type': 'PropertyValue', name: 'Nation', value: nationValue },
+            { '@type': 'PropertyValue', name: 'Event', value: eventValue },
+            { '@type': 'PropertyValue', name: 'Skill Moves', value: String(skillMovesValue) },
+            { '@type': 'PropertyValue', name: 'Weak Foot', value: String(weakFootValue) }
+          ]
+        }
       ]
     }
   };

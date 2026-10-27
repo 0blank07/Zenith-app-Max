@@ -14,6 +14,9 @@ export async function generateMetadata({ params }) {
   return {
     title: stream.seoTitle || `${stream.title} | ZenithFCM Streaming`,
     description: stream.metaDescription || stream.description || `Watch ${stream.title} on ZenithFCM Streaming Hub.`,
+    alternates: {
+      canonical: `/streaming/${params.slug}`
+    },
   };
 }
 

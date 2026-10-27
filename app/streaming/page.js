@@ -9,6 +9,9 @@ export const revalidate = 60; // Revalidate every 60 seconds
 export const metadata = {
   title: 'ZenithFCM Streaming Hub | Live Tournaments & Replays',
   description: 'Watch live FC Mobile tournaments, upcoming community events, and catch up on replays in the ZenithFCM Streaming Hub.',
+  alternates: {
+    canonical: '/streaming'
+  },
 };
 
 export default async function StreamingHubPage({ searchParams }) {

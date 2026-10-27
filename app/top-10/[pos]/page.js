@@ -17,6 +17,9 @@ export async function generateMetadata({ params }) {
   const defaultMetadata = {
     title: `Top 10 ${pos} Players - FC Mobile`,
     description: `Discover the best 10 ${pos} players in FC Mobile. Expert curated rankings to help you build the ultimate squad.`,
+    alternates: {
+      canonical: `/top-10/${pos.toLowerCase()}`
+    },
   };
   const { resolvePageSeo } = await import('../../../src/lib/server/page-seo-metadata.mjs');
   return resolvePageSeo(`/top-10/${pos.toLowerCase()}`, defaultMetadata);

@@ -32,9 +32,6 @@ export const metadata = {
       { url: '/apple-touch-icon.png' },
     ],
   },
-  alternates: {
-    canonical: '/'
-  },
   openGraph: {
     title: 'Zenith - FC Mobile Database',
     description: 'Zenith FC Mobile tools and database',
@@ -62,6 +59,7 @@ export default function RootLayout({ children }) {
         <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossOrigin="anonymous" />
         <link rel="stylesheet" href="/assets/css/style.css" precedence="default" />
+        <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs.txt" />
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4474200951186936"

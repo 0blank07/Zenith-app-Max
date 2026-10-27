@@ -50,6 +50,11 @@ const nextConfig = {
     return [
       // Simple path redirects (no query param logic here to avoid loops)
       {
+        source: '/squad-builder',
+        destination: '/tools/squad-builder',
+        permanent: true,
+      },
+      {
         source: '/compare',
         destination: '/tools/player-compare',
         permanent: true,

@@ -65,7 +65,8 @@ export async function middleware(request) {
     '/tr/fc-mobil-kullanim-kodlari',
     '/ru/fc-mobile-promo-code',
     '/my/fc-mobile-redeem-codes',
-    '/es/codigos-de-canje-de-fc-mobile'
+    '/es/codigos-de-canje-de-fc-mobile',
+    '/shard-calculator'
   ];
   
   if (gonePaths.includes(pathname) || pathname.startsWith('/blogs/redeem-codes/')) {

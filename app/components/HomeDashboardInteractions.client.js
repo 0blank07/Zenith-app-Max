@@ -26,6 +26,18 @@ export default function HomeDashboardInteractions() {
       router.push(path);
     };
 
+    const handleUnhandledRejection = (event) => {
+      if (
+        event?.reason?.name === 'AbortError' ||
+        event?.reason?.code === 20 ||
+        String(event?.reason?.message || '').toLowerCase().includes('abort')
+      ) {
+        event.preventDefault();
+      }
+    };
+    window.addEventListener('unhandledrejection', handleUnhandledRejection);
+    cleanup.push(() => window.removeEventListener('unhandledrejection', handleUnhandledRejection));
+
     let searchInitialized = false;
 
     const setupDeferredSearch = () => {
@@ -178,9 +190,26 @@ export default function HomeDashboardInteractions() {
           };
         };
 
+        const cancelPendingSearch = () => {
+          if (activeController) {
+            try {
+              activeController.abort();
+            } catch {
+              // Ignore synchronous abort errors
+            }
+            activeController = null;
+          }
+        };
+
+        const isAbortError = (err) => {
+          if (!err) return false;
+          return err.name === 'AbortError' || err.code === 20 || String(err.message || '').toLowerCase().includes('abort');
+        };
+
         const loadSearchResults = async (rawQuery, requestId) => {
-          if (activeController) activeController.abort();
-          activeController = new AbortController();
+          cancelPendingSearch();
+          const controller = new AbortController();
+          activeController = controller;
 
           const params = new URLSearchParams({
             q: rawQuery,
@@ -189,24 +218,36 @@ export default function HomeDashboardInteractions() {
             rank: '0'
           });
 
-          const response = await fetch(`/internal-api/players/search?${params.toString()}`, {
-            cache: 'no-store',
-            signal: activeController.signal
-          });
+          let response;
+          try {
+            response = await fetch(`/internal-api/players/search?${params.toString()}`, {
+              cache: 'no-store',
+              signal: controller.signal
+            });
+          } catch (error) {
+            if (isAbortError(error) || controller.signal.aborted) {
+              return;
+            }
+            throw error;
+          }
 
           let payload = {};
           try {
             payload = await response.json();
-          } catch {
+          } catch (jsonErr) {
+            if (isAbortError(jsonErr) || controller.signal.aborted) {
+              return;
+            }
             payload = {};
           }
 
           if (!response.ok) {
+            if (controller.signal.aborted) return;
             const message = toText(payload?.error || payload?.detail, `Search failed (${response.status})`);
             throw new Error(message);
           }
 
-          if (requestId !== searchRequestId) return;
+          if (requestId !== searchRequestId || controller.signal.aborted) return;
 
           const rows = Array.isArray(payload?.players)
             ? payload.players
@@ -247,7 +288,7 @@ export default function HomeDashboardInteractions() {
             searchResultsDropdown.innerHTML = '';
             closeDropdown();
             activeResults = [];
-            if (activeController) activeController.abort();
+            cancelPendingSearch();
             if (searchTimeoutId) window.clearTimeout(searchTimeoutId);
             return;
           }
@@ -265,7 +306,7 @@ export default function HomeDashboardInteractions() {
             try {
               await loadSearchResults(rawQuery, requestId);
             } catch (error) {
-              if (error?.name === 'AbortError') return;
+              if (isAbortError(error)) return;
               searchResultsDropdown.innerHTML = `
                 <div class="dropdown-no-results">
                   <p style="color: var(--color-status-error);">Search error. Please try again.</p>
@@ -319,7 +360,7 @@ export default function HomeDashboardInteractions() {
         cleanup.push(() => document.removeEventListener('click', onClickOutside));
         cleanup.push(() => {
           if (searchTimeoutId) window.clearTimeout(searchTimeoutId);
-          if (activeController) activeController.abort();
+          cancelPendingSearch();
         });
 
         // Trigger search if focus happens and input already exists
