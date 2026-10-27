@@ -666,7 +666,7 @@ export const REDEEM_ROUTE_CONFIG = Object.freeze({
       'Consulta los últimos códigos de FC Mobile con recompensas gratis, jugadores garantizados, gemas y vouchers. Guía paso a paso y solución a problemas de canje.',
     h1: 'Códigos FC Mobile: Lista de Canje y Recompensas Activas',
     intro:
-      '¿Buscas los códigos FC Mobile hoy para conseguir recompensas gratis? Consulta nuestra lista actualizada con los últimos codigos fc mobile y codigos de canje activos sin acento, recompensas garantizadas, tutorial paso a paso para canjear en redeem.fcm.ea.com y compatibilidad con las cuentas de la clásica saga FIFA Mobile para jugadores de Latinoamérica y España.',
+      '¿Buscas los códigos FC Mobile hoy para conseguir recompensas gratis? Consulta nuestra lista actualizada con los últimos códigos de canje de FC Mobile activos, recompensas garantizadas, tutorial paso a paso para canjear en redeem.fcm.ea.com y compatibilidad con las cuentas de la clásica saga FIFA Mobile para jugadores de Latinoamérica y España.',
     globalCodeNote:
       'Los códigos de canje son una de las formas más sencillas de conseguir recompensas gratis en FC Mobile sin gastar FC Points ni Coins. La mayoría de los códigos son globales y aplican a todas las cuentas vinculadas.',
     copy: {

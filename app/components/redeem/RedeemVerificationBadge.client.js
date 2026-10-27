@@ -3,13 +3,15 @@
 import { useState, useEffect } from 'react';
 import styles from './RedeemCodeHubPage.module.css';
 
-function formatTodayDate(locale = 'en-US') {
+function formatVerificationDate(dateValue, locale = 'en-US') {
   try {
+    const d = dateValue ? new Date(dateValue) : new Date();
+    const resolved = Number.isNaN(d.getTime()) ? new Date() : d;
     return new Intl.DateTimeFormat(locale, {
       month: 'short',
       day: 'numeric',
       year: 'numeric'
-    }).format(new Date());
+    }).format(resolved);
   } catch {
     return new Intl.DateTimeFormat('en-US', {
       month: 'short',
@@ -22,13 +24,14 @@ function formatTodayDate(locale = 'en-US') {
 export default function RedeemVerificationBadge({
   locale = 'en-US',
   label = 'Last Verified Working',
+  updatedAt = '',
   className = ''
 }) {
-  const [dateText, setDateText] = useState(() => formatTodayDate(locale));
+  const [dateText, setDateText] = useState(() => formatVerificationDate(updatedAt, locale));
 
   useEffect(() => {
-    setDateText(formatTodayDate(locale));
-  }, [locale]);
+    setDateText(formatVerificationDate(updatedAt, locale));
+  }, [locale, updatedAt]);
 
   return (
     <div

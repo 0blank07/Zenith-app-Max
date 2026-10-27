@@ -250,7 +250,11 @@ export default function RedeemCodeHubPage({ pageData }) {
                   <span className={styles.sectionMeta}>{`${activeCodes.length} ${copy.activeCountSuffix}`}</span>
                 </div>
                 <div className={styles.verificationRow}>
-                  <RedeemVerificationBadge locale={locale} label={copy.lastVerifiedWorking} />
+                  <RedeemVerificationBadge
+                    locale={locale}
+                    label={activeCodes.length ? copy.lastVerifiedWorking : (copy.lastUpdatedLabel ? copy.lastUpdatedLabel.replace(/:$/, '') : 'Last Checked')}
+                    updatedAt={updatedAt}
+                  />
                   <Link href="/about-us" className={styles.trustBadge}>
                     <svg
                       className={styles.trustIcon}

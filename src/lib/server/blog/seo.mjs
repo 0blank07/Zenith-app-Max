@@ -310,6 +310,7 @@ export async function getBlogSitemapEntries(rawEnv = process.env) {
     const publishedCategorySlugs = new Set(publishedCategories.map((entry) => entry.slug));
 
     for (const category of categories) {
+      if (category.slug === 'redeem-codes') continue;
       if (!publishedCategorySlugs.has(category.slug)) continue;
       const matched = publishedCategories.find((entry) => entry.slug === category.slug);
 
@@ -333,7 +334,7 @@ export async function getBlogSitemapEntries(rawEnv = process.env) {
     for (const post of posts) {
       const categorySlug = toText(post?.category?.slug);
       const slug = toText(post?.slug);
-      if (!categorySlug || !slug) continue;
+      if (!categorySlug || !slug || categorySlug === 'redeem-codes') continue;
 
       entries.push({
         url: toAbsoluteBlogUrl(`/blogs/${encodeURIComponent(categorySlug)}/${encodeURIComponent(slug)}`, rawEnv),
