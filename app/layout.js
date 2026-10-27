@@ -94,11 +94,11 @@ export default function RootLayout({ children }) {
         <Script
           id="simple-analytics"
           src="https://scripts.simpleanalyticscdn.com/latest.js"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
           data-collect-dnt="true"
         />
         {process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID ? (
-          <Script id="microsoft-clarity" strategy="afterInteractive">
+          <Script id="microsoft-clarity" strategy="lazyOnload">
             {`
               (function(c,l,a,r,i,t,y){
                   c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};

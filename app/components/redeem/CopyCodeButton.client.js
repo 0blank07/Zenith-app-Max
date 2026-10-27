@@ -16,24 +16,40 @@ export default function CopyCodeButton({
 }) {
   const [status, setStatus] = useState('idle');
 
-  async function handleCopy() {
+  function handleCopy() {
     const code = toText(codeValue);
     if (!code) return;
 
-    try {
-      await navigator.clipboard.writeText(code);
-      setStatus('copied');
-      window.setTimeout(() => setStatus('idle'), 1400);
+    // Instant visual feedback on interaction (eliminates INP latency)
+    setStatus('copied');
+    window.setTimeout(() => setStatus('idle'), 1400);
 
-      const nextHref = toText(redirectHref);
-      if (nextHref) {
-        window.setTimeout(() => {
-          window.location.assign(nextHref);
-        }, 120);
+    const nextHref = toText(redirectHref);
+    if (nextHref) {
+      window.setTimeout(() => {
+        window.location.assign(nextHref);
+      }, 120);
+    }
+
+    if (navigator?.clipboard?.writeText) {
+      navigator.clipboard.writeText(code).catch(() => {
+        setStatus('failed');
+        window.setTimeout(() => setStatus('idle'), 1400);
+      });
+    } else {
+      try {
+        const textarea = document.createElement('textarea');
+        textarea.value = code;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+      } catch {
+        setStatus('failed');
+        window.setTimeout(() => setStatus('idle'), 1400);
       }
-    } catch {
-      setStatus('failed');
-      window.setTimeout(() => setStatus('idle'), 1400);
     }
   }
 
