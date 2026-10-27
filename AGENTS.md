@@ -92,3 +92,13 @@ Short, task-focused commit subjects (often lowercase, e.g., "sitemap, robots.txt
 
 - Secrets only in `.env.local` and CI secret storage
 - Required integrations: Supabase, revalidation secrets — never commit credentials
+
+## Agent skills
+
+### Issue tracker
+
+GitHub Issues via `gh` CLI. See `docs/agents/issue-tracker.md`.
+
+### Domain docs
+
+Single-context (`GLOSSARY.md` + `docs/adr/`). See `docs/agents/domain.md`.

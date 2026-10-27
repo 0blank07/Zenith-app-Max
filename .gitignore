@@ -43,3 +43,12 @@ image-not-found-player-id.csv
 scraper-progress.log
 recovered/
 .agents/
+
+
+# Other markdown files
+ACTION-PLAN.md
+FULL-AUDIT-REPORT.md
+audit_content_stats.json
+audit_live_redeem.json
+competitor_data/
+docs/

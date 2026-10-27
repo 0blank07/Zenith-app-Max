@@ -67,3 +67,25 @@ npm run start
 For deeper architectural audits and run guides, refer to:
 - `Documentation-zenith.md`: Run and validation guide.
 - `zenith-details.md`: Internal architecture and runtime details.
+
+
+## Quality gates (all must pass before commit)
+- Lint: `npm run lint` (Next.js ESLint, `.eslintrc.json`; note that `next.config.js` sets `eslint.ignoreDuringBuilds: true`)
+- Type check: NOT SET UP (no script in `package.json`; `tsconfig.json` exists with `allowJs: true`, `strict: false`; `next.config.js` sets `typescript.ignoreBuildErrors: true`)
+- Tests: Node.js test runner (`node:test`, `node:assert/strict`) via `node --test <file>.test.mjs` (e.g. `tests/e2e/redeem-codes.test.mjs`) or `npm run test:price` (repo-wide test script is NOT SET UP)
+- Build: `npm run build` only when needed. It pre-renders up to 10,000 players, so use PRERENDER_TIER / TOP_PLAYERS_PRERENDER_LIMIT to reduce it for routine checks.
+
+## Safety rules (project-specific)
+- Never run db:migrate:blog, db:seed:blog-users or revalidate:call against production without my explicit approval each time. Show the exact command and target first.
+- Don't modify /legacy or scripts/prepare-legacy.mjs unless I ask.
+
+## SEO rules
+- Keep existing public URLs, canonicals, metadata and JSON-LD working. No route renames or redirects without my approval.
+- Check metadata and schema changes with the seo skill.
+
+## Deploy (fill from the real setup; don't guess)
+- Host: Linode VPS. PM2 process name: ASK OWNER (no ecosystem config in repo). Nginx config: ASK OWNER (no Nginx reverse proxy config in repo; managed on host/VPS).
+- Deploy steps: ASK OWNER (conceptual workflow in `zenith-details.md` is `git push -> VPS pull -> npm install -> npm run build -> restart`, but no automated pipeline/scripts in repo). Rollback: ASK OWNER (no rollback scripts or strategy defined in repo). Smoke-test URLs: `/`, `/players`, `/player/<id>`, `/market`, `/tools` (`/tools/squad-builder`, `/tools/player-compare`, `/tools/watchlist`), `/blogs`, `/blogs/reviews`, `/robots.txt`, `/sitemap.xml`, `/fc-mobile-redeem-codes`.
+
+## Language
+- New code in: ASK OWNER (codebase is ~100% JavaScript: 221 `.js`, 87 `.mjs`, 2 `.jsx`, 0 `.ts`/`.tsx` application files; `typescript` devDependency and `tsconfig.json` exist but app code is purely JS). When editing an existing file, match its style.
