@@ -6,6 +6,8 @@
   flex-direction: column;
   gap: 24px;
   font-family: inherit;
+  box-sizing: border-box;
+  width: 100%;
 }
 
 /* Breadcrumbs */
@@ -229,6 +231,9 @@
   flex-direction: column;
   gap: 28px;
   margin-top: 24px;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
 }
 
 .sectionHeader {
@@ -260,6 +265,9 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
   gap: 24px;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
 }
 
 .card {
@@ -271,6 +279,11 @@
   flex-direction: column;
   gap: 20px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .card:hover {
@@ -321,6 +334,9 @@
 
 .codeButton {
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
   height: 64px;
   background: #0b141a;
   border: 2px dashed rgba(0, 194, 168, 0.4);
@@ -334,6 +350,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .codeButton:hover {
@@ -351,10 +371,14 @@
 
 .cardFooter {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 12px;
   padding-top: 16px;
   border-top: 1px solid rgba(255, 255, 255, 0.05);
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
 }
 
 .cardFooter span {
@@ -476,11 +500,35 @@
 
   .section {
     padding: 36px 16px 24px;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
   }
 
   .cards {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 16px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .card {
+    padding: 20px 16px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  .codeButton {
+    font-size: clamp(0.95rem, 4.2vw, 1.3rem);
+    letter-spacing: 0.08em;
+    height: 56px;
+    padding: 0 8px;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .faq {
@@ -1363,5 +1411,19 @@
   }
   .methodologyCard {
     padding: 16px 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .section {
+    padding: 28px 12px 20px;
+  }
+  .card {
+    padding: 16px 12px;
+  }
+  .codeButton {
+    font-size: clamp(0.88rem, 4.2vw, 1.15rem);
+    letter-spacing: 0.05em;
+    height: 50px;
   }
 }

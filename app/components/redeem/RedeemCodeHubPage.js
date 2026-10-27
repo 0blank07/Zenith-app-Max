@@ -277,8 +277,8 @@ export default function RedeemCodeHubPage({ pageData }) {
                   <p className={styles.empty}>{copy.activeEmpty}</p>
                 )}
               </section>
-              <div style={{ minHeight: '280px', width: '100%', margin: '20px 0 40px', contain: 'layout style', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <AdsenseAd slot="3323774708" style={{ margin: 0, minHeight: '280px', width: '100%' }} />
+              <div style={{ minHeight: '280px', width: '100%', maxWidth: '100%', boxSizing: 'border-box', overflow: 'hidden', margin: '20px 0 40px', contain: 'layout style', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <AdsenseAd slot="3323774708" style={{ margin: 0, minHeight: '280px', width: '100%', maxWidth: '100%' }} />
               </div>
             </>
           )}
@@ -367,8 +367,8 @@ export default function RedeemCodeHubPage({ pageData }) {
                     <Fragment key={entry.id}>
                       {renderCodeCard(entry, locale, copy)}
                       {(index === 2 || index === 8) && (
-                        <div style={{ gridColumn: '1 / -1', minHeight: '280px', width: '100%', margin: '16px 0', contain: 'layout style', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                          <AdsenseAd slot="2010693034" style={{ margin: 0, minHeight: '280px', width: '100%' }} />
+                        <div style={{ gridColumn: '1 / -1', minHeight: '280px', width: '100%', maxWidth: '100%', boxSizing: 'border-box', overflow: 'hidden', margin: '16px 0', contain: 'layout style', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                          <AdsenseAd slot="2010693034" style={{ margin: 0, minHeight: '280px', width: '100%', maxWidth: '100%' }} />
                         </div>
                       )}
                     </Fragment>
